@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MirrorType: Normal
   _MirrorCount: 3
+  _TypeId: 20
+  _MirrorPrefab: {fileID: 6588112144907391316, guid: 0cf36e9e047581642a811ebbce1e7931, type: 3}
+  _UIMirrorPrefab: {fileID: 6722746090080281197, guid: fe765d62dcdafba4db1afe81c1f1835e, type: 3}

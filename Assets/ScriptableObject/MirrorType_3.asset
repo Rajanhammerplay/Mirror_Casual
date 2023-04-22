@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MirrorType: Ultra
   _MirrorCount: 1
+  _TypeId: 22

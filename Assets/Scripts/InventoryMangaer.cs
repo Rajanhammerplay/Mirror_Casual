@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryMangaer : MonoBehaviour
 {
-    [SerializeField] List<GameObject> Mirrors;
+    public List<MirrorTypes> Mirrors;
 
     [SerializeField] GameObject UI_Parent;
     // Start is called before the first frame update
@@ -15,9 +15,9 @@ public class InventoryMangaer : MonoBehaviour
 
     public void ShowInvItems()
     {
-        foreach(GameObject mirror in Mirrors)
+        foreach(MirrorTypes mirror in Mirrors)
         {
-            Instantiate(mirror, UI_Parent.transform);
+            Instantiate(mirror._UIMirrorPrefab, UI_Parent.transform);
         }
     }
 }

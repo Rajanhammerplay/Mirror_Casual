@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: -0.0000011920929}
+  m_AnchoredPosition: {x: -1.1, y: -0.0000011920929}
   m_SizeDelta: {x: 90.586, y: 77.5413}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6722746089010526185
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8f0c12668d1fc034cb9c41963e7e8c13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 728a4b5bbbde1714e8b59e08b69c7c9a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -112,8 +112,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.2444, y: 0.093}
-  m_SizeDelta: {x: 96.2223, y: 97.4052}
+  m_AnchoredPosition: {x: 0.024400234, y: 0.9731}
+  m_SizeDelta: {x: 92.262, y: 99.1653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6722746089630670197
 CanvasRenderer:
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5660378, g: 0.5625008, b: 0.47205415, a: 1}
+  m_Color: {r: 0.63540256, g: 0.9433962, b: 0.45745817, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21960784, g: 0.31850055, b: 0.6784314, a: 1}
+  m_Color: {r: 0.27792868, g: 0.6784314, b: 0.21960784, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -257,7 +257,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6722746090080281197}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0785027, y: 1.0785027, z: 1.0785027}
   m_ConstrainProportionsScale: 0
@@ -293,8 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6117647, g: 0.20392157, b: 0.271084, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.4528302, g: 0.44172305, b: 0.44353864, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -353,7 +353,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6722746090080281192}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6722746090080281198}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: PickInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6722746090080281198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CountText: {fileID: 6722746090921491251}
   _Mirror_Types: {fileID: 11400000, guid: 50443de9970a0364ea010f66cd401376, type: 2}
+  m_InvManager: {fileID: 3780996149938957151, guid: da8c6b572edb8b2479f2737f89488ee9, type: 3}
+  m_MirrorManager: {fileID: 7319291408658231852, guid: 60076cab4740f8f49a17eb41810dee5c, type: 3}
 --- !u!1 &6722746090921491249
 GameObject:
   m_ObjectHideFlags: 0

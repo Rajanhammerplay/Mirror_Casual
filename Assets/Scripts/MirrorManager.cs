@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MirrorManager : MonoBehaviour
 {
@@ -27,6 +28,13 @@ public class MirrorManager : MonoBehaviour
 
     public enum While_on{mirror_added,mirror_select};
 
+    public LayerMask LayerMaskToIgnore;
+
+    public GameObject MirrorPicked;
+
+    public GameObject MirrorParent;
+
+
     private void Start()
     {
         m_NormalShader = Shader.Find("Standard");
@@ -50,41 +58,51 @@ public class MirrorManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMaskToIgnore))
             {
-                if (hit.collider.gameObject.tag == "mirror" )
+                if (hit.collider.gameObject.tag == "mirror")
                 {
                     if (hit.collider.gameObject != null)
                     {
                         MirrorSelected(hit.collider.gameObject, While_on.mirror_select);
                         return;
                     }
- 
+
                 }
                 else if (hit.collider.gameObject.tag == "ground")
                 {
                     m_HitPoint = hit.point;
                     //to blocks the player to place mirrors nearby others
-                    Collider[] colliders  = Physics.OverlapSphere(hit.point, _Radius);
-                    if(colliders.Length>0)
+                    Collider[] colliders = Physics.OverlapSphere(hit.point, _Radius);
+                    if (colliders.Length > 0)
                     {
-                        foreach(var collider in colliders)
+                        foreach (var collider in colliders)
                         {
-                            if(collider.gameObject.tag == "mirror")
+                            if (collider.gameObject.tag == "mirror")
                             {
                                 return;
                             }
                             else
                             {
-
-                                if (GetSpawnedMirror() != null)
+                                if(MirrorPicked!=null)
                                 {
-                                    GameObject mirror = GetSpawnedMirror();
-                                    mirror.transform.position = new Vector3(m_HitPoint.x, m_HitPoint.y + 0.2f, m_HitPoint.z);
-                                    mirror.SetActive(true);
-                                    MirrorSelected(mirror,While_on.mirror_added);
+                                    MirrorPicked.transform.position = hit.collider.transform.position;
+                                    Instantiate(MirrorPicked,MirrorParent.transform);
+                                   // MirrorPicked = null;
+                                }else
+                                {
+                                    print("");
                                 }
+
+                                //if (GetSpawnedMirror() != null)
+                                //{
+                                //    GameObject mirror = GetSpawnedMirror();
+                                //    mirror.transform.position = new Vector3(m_HitPoint.x, m_HitPoint.y + 0.2f, m_HitPoint.z);
+                                //    mirror.SetActive(true);
+                                //    MirrorSelected(mirror, While_on.mirror_added);
+                                //}
                             }
                         }
                     }
