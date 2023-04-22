@@ -1,0 +1,4 @@
+[submodule "Assets/Common"]
+	path = Assets/Common
+url=https://vijayvincell@bitbucket.org/Vincell/escapecommoncode.git
+	branch = master
