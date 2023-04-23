@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CountText: {fileID: 2790615578431922568}
-  _Mirror_Types: {fileID: 11400000, guid: 50443de9970a0364ea010f66cd401376, type: 2}
+  m_Mirror: {fileID: 11400000, guid: 13df0066dfe1bd941b8d40f83a78edc0, type: 2}
   m_InvManager: {fileID: 3780996149938957151, guid: da8c6b572edb8b2479f2737f89488ee9, type: 3}
   m_MirrorManager: {fileID: 7319291408658231852, guid: 60076cab4740f8f49a17eb41810dee5c, type: 3}
 --- !u!114 &1485206822313303350
@@ -216,7 +216,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2790615577113364217}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5393621067598748185}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: TapOnInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2790615578236386735
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.37, y: 38.6}
+  m_AnchoredPosition: {x: -0.23, y: 38.6}
   m_SizeDelta: {x: 1.856, y: 16.124}
   m_Pivot: {x: 0.49999994, y: 0.5}
 --- !u!222 &2790615578431922567

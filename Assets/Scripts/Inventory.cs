@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI CountText;
 
-    [SerializeField] private MirrorTypes _Mirror_Types;
+    [SerializeField] private MirrorTypes m_Mirror;
 
     [SerializeField] private InventoryMangaer m_InvManager;
 
     [SerializeField] private MirrorManager m_MirrorManager;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
-        if(CountText!=null && _Mirror_Types!=null)
+        if(CountText!=null && m_Mirror != null)
         {
-            CountText.text = _Mirror_Types._MirrorCount.ToString();
+            CountText.text = m_Mirror._MirrorCount.ToString();
         }
 
     }
@@ -31,16 +33,21 @@ public class Inventory : MonoBehaviour
     }
 
     //to Pick and reduce inventory count
-    public void PickInventory()
+    public void TapOnInventory()
     {
-        foreach(MirrorTypes mirror in m_InvManager.Mirrors)
-        {
-            if(mirror._TypeId == _Mirror_Types._TypeId)
-            {
-                m_MirrorManager.MirrorPicked = mirror._MirrorPrefab;
-                return;
-            }
-        }
+        print("tapping");
+        //foreach(MirrorTypes mirror in m_InvManager.Mirrors)
+        //{
+        //    if(mirror._TypeId == _Mirror_Types._TypeId)
+        //    {
+        //        m_MirrorManager.MirrorPicked = mirror._MirrorPrefab;
+        //        return;
+        //    }
+        //}
+
+            m_InvManager.Mirror = m_Mirror;
+            m_InvManager.PickInventory();
+        
     }
 
 }

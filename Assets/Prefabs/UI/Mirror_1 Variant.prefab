@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1485206822313303350, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2790615577100960879, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}
       propertyPath: m_Color.b
       value: 0.05490194
@@ -117,12 +121,16 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b99b2bf1e2e554f4e985c4b1a5936ddd, type: 3}
     - target: {fileID: 2790615578431922569, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.37
+      value: -0.23
       objectReference: {fileID: 0}
     - target: {fileID: 2790615578431922569, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 38.6
       objectReference: {fileID: 0}
+    - target: {fileID: 5393621067598748185, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}
+      propertyPath: m_Mirror
+      value: 
+      objectReference: {fileID: 11400000, guid: 50443de9970a0364ea010f66cd401376, type: 2}
     - target: {fileID: 5393621067598748185, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}
       propertyPath: CountText
       value: 
@@ -192,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CountText: {fileID: 0}
-  _Mirror_Types: {fileID: 11400000, guid: 13df0066dfe1bd941b8d40f83a78edc0, type: 2}
+  m_Mirror: {fileID: 0}
   m_InvManager: {fileID: 3780996149938957151, guid: da8c6b572edb8b2479f2737f89488ee9, type: 3}
   m_MirrorManager: {fileID: 7319291408658231852, guid: 60076cab4740f8f49a17eb41810dee5c, type: 3}
 --- !u!114 &2489213609879593554
@@ -241,7 +249,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2078976286073453359}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: PickInventory
+        m_MethodName: TapOnInventory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

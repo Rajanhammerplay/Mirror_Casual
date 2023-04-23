@@ -34,6 +34,8 @@ public class MirrorManager : MonoBehaviour
 
     public GameObject MirrorParent;
 
+    public InventoryMangaer m_InvManager;
+
 
     private void Start()
     {
@@ -46,6 +48,19 @@ public class MirrorManager : MonoBehaviour
             mirror.transform.parent = this.transform;
             mirror.gameObject.SetActive(false);
             m_MirrorPool.Add(mirror.GetComponent<Mirror>());
+        }
+        if (m_InvManager!= null)
+        {
+            m_InvManager.m_InvArgs += AddInvItem;
+        }
+    }
+
+    //method for recieve event
+    public void AddInvItem(object sender, InventoryArgs args)
+    {
+        if (args != null)
+        {
+            m_Mirror = args.InvItem._MirrorPrefab;
         }
     }
     // Update is called once per frame
@@ -60,8 +75,13 @@ public class MirrorManager : MonoBehaviour
         {
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMaskToIgnore))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
+                if (EventSystem.current.IsPointerOverGameObject() || hit.collider.gameObject.GetComponent<Canvas>() != null)
+                { 
+                    print("www");
+                    return;
+                }
                 if (hit.collider.gameObject.tag == "mirror")
                 {
                     if (hit.collider.gameObject != null)
@@ -93,16 +113,13 @@ public class MirrorManager : MonoBehaviour
                                    // MirrorPicked = null;
                                 }else
                                 {
-                                    print("");
+                                    if(GetSpawnedMirror()!=null)
+                                    {
+                                        m_MirrorPool[0].gameObject.SetActive(true);
+                                    }
                                 }
 
-                                //if (GetSpawnedMirror() != null)
-                                //{
-                                //    GameObject mirror = GetSpawnedMirror();
-                                //    mirror.transform.position = new Vector3(m_HitPoint.x, m_HitPoint.y + 0.2f, m_HitPoint.z);
-                                //    mirror.SetActive(true);
-                                //    MirrorSelected(mirror, While_on.mirror_added);
-                                //}
+
                             }
                         }
                     }
@@ -124,7 +141,7 @@ public class MirrorManager : MonoBehaviour
         }
         return null;
     }
-
+ 
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(m_HitPoint, _Radius);
