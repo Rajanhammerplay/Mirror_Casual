@@ -16,4 +16,4 @@ MonoBehaviour:
   _MirrorCount: 3
   _TypeId: 20
   _MirrorPrefab: {fileID: 6588112144907391316, guid: 0cf36e9e047581642a811ebbce1e7931, type: 3}
-  _UIMirrorPrefab: {fileID: 6722746090080281197, guid: fe765d62dcdafba4db1afe81c1f1835e, type: 3}
+  _UIMirrorPrefab: {fileID: 2790615577113364219, guid: 69a2bba9af7bf7d439b9daf372c17ddf, type: 3}

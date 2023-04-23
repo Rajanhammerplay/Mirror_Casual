@@ -17,7 +17,11 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CountText.text = _Mirror_Types._MirrorCount.ToString();
+        if(CountText!=null && _Mirror_Types!=null)
+        {
+            CountText.text = _Mirror_Types._MirrorCount.ToString();
+        }
+
     }
 
     // Update is called once per frame
