@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 
 
 namespace TMPro.Examples
@@ -60,7 +61,7 @@ namespace TMPro.Examples
 
             TMP_TextInfo textInfo = m_TextComponent.textInfo;
 
-            Matrix4x4 matrix;
+            UnityEngine.Matrix4x4 matrix;
             TMP_MeshInfo[] cachedMeshInfoVertexData = textInfo.CopyMeshInfoVertexData();
 
             // Allocations for sorting of the modified scales
@@ -108,18 +109,18 @@ namespace TMPro.Examples
                     int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
                     // Get the cached vertices of the mesh used by this text element (character or sprite).
-                    Vector3[] sourceVertices = cachedMeshInfoVertexData[materialIndex].vertices;
+                    UnityEngine.Vector3[] sourceVertices = cachedMeshInfoVertexData[materialIndex].vertices;
 
                     // Determine the center point of each character at the baseline.
                     //Vector2 charMidBasline = new Vector2((sourceVertices[vertexIndex + 0].x + sourceVertices[vertexIndex + 2].x) / 2, charInfo.baseLine);
                     // Determine the center point of each character.
-                    Vector2 charMidBasline = (sourceVertices[vertexIndex + 0] + sourceVertices[vertexIndex + 2]) / 2;
+                    UnityEngine.Vector2 charMidBasline = (sourceVertices[vertexIndex + 0] + sourceVertices[vertexIndex + 2]) / 2;
 
                     // Need to translate all 4 vertices of each quad to aligned with middle of character / baseline.
                     // This is needed so the matrix TRS is applied at the origin for each character.
-                    Vector3 offset = charMidBasline;
+                    UnityEngine.Vector3 offset = charMidBasline;
 
-                    Vector3[] destinationVertices = textInfo.meshInfo[materialIndex].vertices;
+                    UnityEngine.Vector3[] destinationVertices = textInfo.meshInfo[materialIndex].vertices;
 
                     destinationVertices[vertexIndex + 0] = sourceVertices[vertexIndex + 0] - offset;
                     destinationVertices[vertexIndex + 1] = sourceVertices[vertexIndex + 1] - offset;
@@ -137,7 +138,7 @@ namespace TMPro.Examples
 
                     // Setup the matrix for the scale change.
                     //matrix = Matrix4x4.TRS(jitterOffset, Quaternion.Euler(0, 0, Random.Range(-5f, 5f)), Vector3.one * randomScale);
-                    matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, Vector3.one * randomScale);
+                    matrix = UnityEngine.Matrix4x4.TRS(new UnityEngine.Vector3(0, 0, 0), UnityEngine.Quaternion.identity, UnityEngine.Vector3.one * randomScale);
 
                     destinationVertices[vertexIndex + 0] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 0]);
                     destinationVertices[vertexIndex + 1] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 1]);
@@ -150,8 +151,8 @@ namespace TMPro.Examples
                     destinationVertices[vertexIndex + 3] += offset;
 
                     // Restore Source UVS which have been modified by the sorting
-                    Vector2[] sourceUVs0 = cachedMeshInfoVertexData[materialIndex].uvs0;
-                    Vector2[] destinationUVs0 = textInfo.meshInfo[materialIndex].uvs0;
+                    UnityEngine.Vector4[] sourceUVs0 = cachedMeshInfoVertexData[materialIndex].uvs0;
+                    UnityEngine.Vector4[] destinationUVs0 = textInfo.meshInfo[materialIndex].uvs0;
 
                     destinationUVs0[vertexIndex + 0] = sourceUVs0[vertexIndex + 0];
                     destinationUVs0[vertexIndex + 1] = sourceUVs0[vertexIndex + 1];
@@ -178,7 +179,7 @@ namespace TMPro.Examples
 
                     // Updated modified vertex attributes
                     textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
-                    textInfo.meshInfo[i].mesh.uv = textInfo.meshInfo[i].uvs0;
+                   // textInfo.meshInfo[i].mesh.uv = textInfo.meshInfo[i].uvs0;
                     textInfo.meshInfo[i].mesh.colors32 = textInfo.meshInfo[i].colors32;
 
                     m_TextComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
