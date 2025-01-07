@@ -75,7 +75,7 @@ public class Laser
         {
             m_BeamIndices.Add(hitinfo.point);
             UpdateIndices();
-            hitinfo.collider.gameObject.GetComponent<Troop>().KillEnemy();
+            hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
         }
         else
         {

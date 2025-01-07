@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(fileName = "EnemyData",menuName = "ScriptableObject/MirrorCasual/EnemyData")]
-public class EnemyCard : ScriptableObject
+[CreateAssetMenu(fileName = "TroopData",menuName = "ScriptableObject/MirrorCasual/TroopData")]
+public class TroopCard : ScriptableObject
 {
     public float _Health;
 }

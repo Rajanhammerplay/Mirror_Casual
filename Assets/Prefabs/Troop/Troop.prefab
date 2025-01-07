@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1073998731096710085}
   - component: {fileID: 2578402481632589383}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Troop
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,11 +446,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca55b9410eb05c44b82d25d68e22748b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyData: {fileID: 11400000, guid: 39645f3ff6664f447a5fcfb90884f287, type: 2}
+  m_TroopData: {fileID: 11400000, guid: 39645f3ff6664f447a5fcfb90884f287, type: 2}
   m_HealthBar: {fileID: 2190146916115062837}
-  m_EnemyHealth: 0
+  m_TroopHealth: 0
   m_TroopSpeed: 1

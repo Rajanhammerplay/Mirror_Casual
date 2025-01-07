@@ -14,7 +14,7 @@ public enum MirrorType
 [Serializable]
 public class MirrorTypeMapping
 {
-    public MirrorType key;
+    public MirrorVariation key;
     public MirrorTypes value;
 }
 

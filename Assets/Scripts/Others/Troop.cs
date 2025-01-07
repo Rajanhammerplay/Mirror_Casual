@@ -5,11 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class Troop : MonoBehaviour
 {
-    [SerializeField] EnemyCard m_EnemyData;
+    [SerializeField] TroopCard m_TroopData;
 
     [SerializeField] HelathBar m_HealthBar;
 
-    public float m_EnemyHealth;
+    public float m_TroopHealth;
     private float m_PlayerYPos;
     [Header("Movement Props")]
     Tilemap m_PathTileMap;
@@ -20,13 +20,13 @@ public class Troop : MonoBehaviour
 
     private void Start()
     {
-        m_EnemyHealth = m_EnemyData._Health;
+        m_TroopHealth = m_TroopData._Health;
         m_PlayerYPos = this.transform.position.y;
         m_PathTileMap = GameObject.Find("Pathparent")?.GetComponent<Tilemap>();
 
         SetPath();
         this.gameObject.transform.position = m_PathTilePosition[0];
-        StartCoroutine(MoveEnemy());
+        StartCoroutine(MoveTroop());
         //StartCoroutine(DelayedSetup());
     }
 
@@ -35,12 +35,12 @@ public class Troop : MonoBehaviour
 
     //}
 
-    public void KillEnemy()
+    public void KillTroop()
     {
-        if(m_EnemyHealth > 0f)
+        if(m_TroopHealth > 0f)
         {
-            m_EnemyHealth -= 0.6f;
-            m_HealthBar.UpdateHealth((m_EnemyHealth/m_EnemyData._Health));
+            m_TroopHealth -= 0.6f;
+            m_HealthBar.UpdateHealth((m_TroopHealth/m_TroopData._Health));
             return;
         }
         Destroy(this.gameObject);
@@ -57,20 +57,34 @@ public class Troop : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveEnemy()
+    public IEnumerator MoveTroop()
     {
         foreach (Vector3 tiletransformpos in m_PathTilePosition)
         {
-            Vector3 Troopos = new Vector3(this.transform.position.x,m_PlayerYPos, this.transform.position.z);
-            Vector3 targetpos = new Vector3(tiletransformpos.x,m_PlayerYPos,tiletransformpos.z);
+            Vector3 Troopos = new Vector3(transform.position.x, m_PlayerYPos, transform.position.z);
+            Vector3 targetpos = new Vector3(tiletransformpos.x, m_PlayerYPos, tiletransformpos.z);
+
+            Collider[] nearbyColliders = Physics.OverlapSphere(Troopos, 1f);
+            if (nearbyColliders.Length > 0)
+            {
+                // Add a random offset to avoid overlapping
+                float randomAngle = Random.Range(0f, 360f);
+                float offsetDistance = 1.5f; // Adjust this value for spacing
+                Vector3 offset = new Vector3(
+                    Mathf.Cos(randomAngle * Mathf.Deg2Rad) * offsetDistance,
+                    0f,
+                    Mathf.Sin(randomAngle * Mathf.Deg2Rad) * offsetDistance
+                );
+                targetpos += offset;
+            }
+
             transform.LookAt(targetpos);
             float movementprogress = 0f;
-            while(movementprogress < m_TroopSpeed)
+            while (movementprogress < m_TroopSpeed)
             {
                 movementprogress += Time.deltaTime * m_TroopSpeed;
-                this.transform.position = Vector3.Lerp(Troopos, targetpos,movementprogress);
+                transform.position = Vector3.Lerp(Troopos, targetpos, movementprogress);
                 yield return new WaitForEndOfFrame();
-
             }
 
         }
