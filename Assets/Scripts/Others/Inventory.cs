@@ -10,16 +10,14 @@ public class Inventory : MonoBehaviour
 
     public MirrorTypes _MirrorTypeData;
 
-    private int m_Count;
-
     // Start is called before the first frame update
     void Start()
     {
         
         if(CountText!=null && _MirrorTypeData != null)
         {
-            m_Count = _MirrorTypeData._MirrorCount;
-            CountText.text = m_Count.ToString();
+            //TroopManager.Instance._SelectedTroopCount = _MirrorTypeData._MirrorCount;
+            //CountText.text = TroopManager.Instance._SelectedTroopCount.ToString();
         }
 
     }
@@ -39,15 +37,15 @@ public class Inventory : MonoBehaviour
 
     public void UpdateInvCount()
     {
-        if (m_Count >= 1)
-        {
-            m_Count -= 1;
-            CountText.text = m_Count.ToString();
-        }
-        else 
-        {
-            CountText.transform.gameObject.SetActive(false);
-        }
+        //if (TroopManager.Instance._SelectedTroopCount >= 1)
+        //{
+        //    //TroopManager.Instance._SelectedTroopCount -= 1;
+        //    //CountText.text = TroopManager.Instance._SelectedTroopCount.ToString();
+        //}
+        //else 
+        //{
+        //    CountText.transform.gameObject.SetActive(false);
+        //}
     }
 
 }

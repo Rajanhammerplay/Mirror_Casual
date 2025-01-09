@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d287653541148348a5fef1fb946dd66
+guid: 54610e3d16c0f784eb71080c74a7ab72
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TCom_Sand_Muddy2_2x2_512_albedo_0
+      name: slider-1-triangle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 512
+        width: 1476
+        height: 1476
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a621c6d520248b4794e46e8f6b12571
-      internalID: 832069271
+      spriteID: 50e782af341a41a4a978c1bcd5b5dbb7
+      internalID: 438985053
       vertices: []
       indices: 
       edges: []
@@ -133,7 +133,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1ad2342f9de0cc045a89352def5b04c4
+    spriteID: 4941f185f9b764e4fa79e0526671a5d1
     internalID: 0
     vertices: []
     indices: 
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TCom_Sand_Muddy2_2x2_512_albedo_0: 832069271
+      slider-1-triangle_0: 438985053
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

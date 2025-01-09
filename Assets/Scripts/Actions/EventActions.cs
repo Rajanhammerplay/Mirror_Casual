@@ -12,4 +12,6 @@ public class EventActions
     public static MirrorVariation _SelectedInvType = MirrorVariation.none;
 
     public static Action<MirrorVariation> _SelectInv;
+
+    public static Action<int,bool,int> _SelectTroopIndex;
 }

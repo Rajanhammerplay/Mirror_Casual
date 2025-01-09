@@ -1,4 +1,4 @@
-Shader "Unlit/NewUnlitShader"
+Shader "Unlit/Buttonshine"
 {
     Properties
     {
@@ -71,7 +71,7 @@ Shader "Unlit/NewUnlitShader"
                 fixed4 shine = tex2D(_Shinetex, i.uv2 + float2(0, _Time.x * _ShineSpeed));
                 shine.a *= button.a;
                 fixed4 shinewithcolor = shine * color;
-                fixed4 mixed = button + shinewithcolor * shine.a;
+                fixed4 mixed = button + shinewithcolor * 0;
                 return mixed;
             }
             ENDCG

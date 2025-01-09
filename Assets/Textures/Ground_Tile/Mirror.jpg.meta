@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d287653541148348a5fef1fb946dd66
+guid: 2927f4ebdbc2e47489e0b0ecfc78212a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TCom_Sand_Muddy2_2x2_512_albedo_0
+      name: Mirror_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 512
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a621c6d520248b4794e46e8f6b12571
-      internalID: 832069271
+      spriteID: edcfb1c60bce19f479baf0b23e4e3b38
+      internalID: -1438975050
       vertices: []
       indices: 
       edges: []
@@ -133,7 +133,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1ad2342f9de0cc045a89352def5b04c4
+    spriteID: 296980f274a464d44961184975d5a862
     internalID: 0
     vertices: []
     indices: 
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TCom_Sand_Muddy2_2x2_512_albedo_0: 832069271
+      Mirror_0: -1438975050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

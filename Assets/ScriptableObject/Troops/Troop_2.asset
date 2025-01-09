@@ -10,7 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b61f4893da9e5aa44a55df2e8964c0cf, type: 3}
-  m_Name: TroopCard
+  m_Name: Troop_2
   m_EditorClassIdentifier: 
-  _Health: 831.84753
-  _PathTileAsset: {fileID: 11400000, guid: 83e9317b78864914f81be727c7d4c0ad, type: 2}
+  _TroopData:
+    Type: 2
+    Name: 
+    Description: 
+    Level: 0
+    Cost: 0
+    SlotCost: 3
+    Image: {fileID: -196521310, guid: 9272e75210ba6f54c8e0281946c8f42a, type: 3}
+    _Health: 0

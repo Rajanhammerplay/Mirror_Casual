@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     public bool isRaycasted = false;
 
     [SerializeField] private GameObject m_Mirror;
+    [SerializeField] private GameObject m_TroopSelectionUI;
 
 
     public float _Radius;
@@ -120,32 +121,35 @@ public class InputManager : MonoBehaviour
                 //    //}
                 //}
             }
+
+    //to check only clicking on UI
     private bool IsPointerOverUI()
     {
         if (EventSystem.current == null)
             return false;
 
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
-        List<RaycastResult> raycastResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerEventData, raycastResults);
-
-        // Only consider results that are actual UI elements
-        foreach (RaycastResult result in raycastResults)
+        PointerEventData pointerevendata = new PointerEventData(EventSystem.current);
+        pointerevendata.position = Input.mousePosition;
+        List<RaycastResult> raycastresult = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerevendata, raycastresult);
+        for (int i = 0; i < raycastresult.Count; i++)
         {
-            if (result.module is GraphicRaycaster) // This specifically checks for UI elements
+            if (raycastresult[i].gameObject.GetComponent<UnityEngine.UI.Image>() != null)
             {
-                Debug.Log("Hit UI specifically: " + result.gameObject.name);
                 return true;
             }
         }
-
         return false;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(m_HitPoint, _Radius);
+    }
+
+    public void TroopSelectionUIInteractions(bool active)
+    {
+       m_TroopSelectionUI.gameObject.SetActive(active);
     }
 }
 

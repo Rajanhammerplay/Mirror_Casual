@@ -24,7 +24,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b2602d90a4b7cc44c8166c14186b3e7f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6d287653541148348a5fef1fb946dd66, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 54610e3d16c0f784eb71080c74a7ab72, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shinetex:
@@ -33,8 +37,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Edge: 0
+    - _MaskStrength: 0
     - _ShineSpeed: 4
     - _Shineaffectingarea: 0.6
+    - _Smoothness: 0
     m_Colors:
     - _CornerShineColor: {r: 5.172933, g: 5.0200386, b: 1.6438086, a: 1}
     - _ShineColor: {r: 0.26654047, g: 0.27758822, b: 0.074896425, a: 1}
