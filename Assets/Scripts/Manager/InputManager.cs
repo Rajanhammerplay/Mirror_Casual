@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
 
     private Tilemap Tilemap;
 
-
+    private bool TroopSelectionActiveted;
     private void Start()
     {
         Tilemap = GetComponent<Tilemap>();
@@ -61,7 +61,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-                if (IsPointerOverUI())
+                if (IsPointerOverUI() || TroopSelectionActiveted)
                 {
                     return;
                 }
@@ -149,6 +149,7 @@ public class InputManager : MonoBehaviour
 
     public void TroopSelectionUIInteractions(bool active)
     {
+        TroopSelectionActiveted = active;
        m_TroopSelectionUI.gameObject.SetActive(active);
     }
 }

@@ -13,5 +13,6 @@ public class EventActions
 
     public static Action<MirrorVariation> _SelectInv;
 
-    public static Action<int,bool,int> _SelectTroopIndex;
+    public static Action<int,int> _SelectTroop;
+    public static Action<int, int> _DropTroop;
 }
