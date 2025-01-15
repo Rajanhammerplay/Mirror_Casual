@@ -18,6 +18,14 @@ public class TroopUIItem : MonoBehaviour
 
     public int m_TroopSlotCost;
 
+    public TroopType _TroopType;
+
+    public bool _TroopSelected;
+
+    private void Start()
+    {
+        EventActions._DropUnitOnGround += DropUnits;
+    }
 
     public void TriggerAddTroopCount()
     {
@@ -28,6 +36,28 @@ public class TroopUIItem : MonoBehaviour
     {
         EventActions._DropTroop.Invoke(InstanceIndex, m_TroopSlotCost);
     }
+
+    public void TriggerSelectUnit()
+    {
+        EventActions._SelectedUnitType = _TroopType;
+        //EventActions._SelectUnitFromPool.Invoke(this.gameObject);
+    }
+
+
+    public void DropUnits(int instindex)
+    {
+        if(instindex == InstanceIndex)
+        {
+            if (_Count > 0)
+            {
+                _Count -= 1;
+                _CountText.text = _Count.ToString();
+            }
+        }
+        
+    }
+
+  
 }
 
 

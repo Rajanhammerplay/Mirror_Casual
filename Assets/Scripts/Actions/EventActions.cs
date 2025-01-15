@@ -9,10 +9,12 @@ public class EventActions
     public static Action<Mirror> _PickMirror;
     public static Action<Mirror> _DropMirror;
 
-    public static MirrorVariation _SelectedInvType = MirrorVariation.none;
+    /*units drag and drop actions*/
+    public static TroopType _SelectedUnitType = TroopType.none;
+    public static Action<GameObject> _SelectUnitFromPool;
+    public static Action<int> _DropUnitOnGround;
 
-    public static Action<MirrorVariation> _SelectInv;
-
+    /*units shop actions*/
     public static Action<int,int> _SelectTroop;
     public static Action<int, int> _DropTroop;
 }

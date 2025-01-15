@@ -15,6 +15,7 @@ public enum TroopType
     Troop_1,
     Troop_2,
     Jammer,
+    none
 }
 
 [System.Serializable]
@@ -28,4 +29,5 @@ public class TroopData
     public int SlotCost;
     public Sprite Image;
     public float _Health;
+    public GameObject _Prefab;
 }

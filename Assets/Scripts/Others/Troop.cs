@@ -26,14 +26,18 @@ public class Troop : MonoBehaviour
 
         SetPath();
         this.gameObject.transform.position = m_PathTilePosition[0];
-        StartCoroutine(MoveTroop());
-        //StartCoroutine(DelayedSetup());
+        
     }
 
     //private IEnumerator DelayedSetup()
     //{
 
     //}
+
+    public void TriggerMove()
+    {
+        StartCoroutine(MoveTroop());
+    }
 
     public void KillTroop()
     {

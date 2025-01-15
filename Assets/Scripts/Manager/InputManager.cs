@@ -39,8 +39,6 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         Tilemap = GetComponent<Tilemap>();
-        print("slected inv type by default: " + EventActions._SelectedInvType);
-
     }
 
     //method for recieve event
@@ -61,20 +59,20 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-                if (IsPointerOverUI() || TroopSelectionActiveted)
+                if (IsPointerOverUI() || TroopSelectionActiveted || EventActions._SelectedUnitType == TroopType.none)
                 {
                     return;
                 }
                 Vector3 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousepos.z = 0;
 
-
                 Vector3Int tilepos = Tilemap.WorldToCell(mousepos);
 
                 TileBase clickedTile = Tilemap.GetTile(tilepos);
 
-                GameObject troop = Instantiate(m_Mirror);
-                troop.transform.position = new Vector3(mousepos.x, 1.708048f, mousepos.z);
+                //GameObject troop = Instantiate(m_Mirror);
+                //troop.transform.position = ;
+                m_PoolManager.DropTroop(new Vector3(mousepos.x, 1.708048f, mousepos.z));
         }
 
 

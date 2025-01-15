@@ -31,8 +31,8 @@ public class Inventory : MonoBehaviour
     //to Pick and reduce inventory count
     public void TapOnInventory()
     {
-        EventActions._SelectInv.Invoke(_MirrorTypeData._MirrorType);
-        print("slected inv: "+EventActions._SelectedInvType);
+        //EventActions._SelectInv.Invoke(_MirrorTypeData._MirrorType);
+        print("slected inv: "+EventActions._SelectedUnitType);
     }
 
     public void UpdateInvCount()

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public enum MirrorType
+public enum UnitType
 {
-    Mirror,
+    Mirror_1,
     Type2,
     Type3
 }
@@ -19,8 +19,8 @@ public class MirrorTypeMapping
 }
 
 
-[CreateAssetMenu(fileName = "MirrorTypes", menuName = "ScriptableObject/MirrorCasual/InventoryData")]
-public class InventoryData : ScriptableObject
+[CreateAssetMenu(fileName = "UnitTypes", menuName = "ScriptableObject/MirrorCasual/UnitsData")]
+public class UnitsData : ScriptableObject
 {
     public List<MirrorTypeMapping> MirrorInventoryList = new List<MirrorTypeMapping>();
 }

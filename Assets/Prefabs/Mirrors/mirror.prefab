@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6588112144907391318}
   - component: {fileID: 6588112144907391317}
   - component: {fileID: 7636973174002581947}
+  - component: {fileID: -2249997337266276005}
   m_Layer: 0
   m_Name: mirror
   m_TagString: mirror
@@ -124,3 +125,17 @@ MonoBehaviour:
   _IsSelected: 0
   _MirrorType: 0
   yPos: 0.2
+--- !u!114 &-2249997337266276005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588112144907391316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6f9f2f8dd7bbb4f92287273eeb6a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _UnitType: 0
+  _UIItem: {fileID: 0}

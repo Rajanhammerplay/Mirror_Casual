@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b61f4893da9e5aa44a55df2e8964c0cf, type: 3}
-  m_Name: Mirror
+  m_Name: Troop_1
   m_EditorClassIdentifier: 
   _TroopData:
-    Type: 0
+    Type: 1
     Name: 
     Description: 
     Level: 0
     Cost: 0
     SlotCost: 1
-    Image: {fileID: -1438975050, guid: 2927f4ebdbc2e47489e0b0ecfc78212a, type: 3}
+    Image: {fileID: 484058279, guid: 6e7e7853ae2659c43ab6c388f143ff13, type: 3}
     _Health: 0
+    _Prefab: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b61f4893da9e5aa44a55df2e8964c0cf, type: 3}
-  m_Name: Jammer
+  m_Name: Mirror
   m_EditorClassIdentifier: 
   _TroopData:
-    Type: 3
+    Type: 0
     Name: 
     Description: 
     Level: 0
     Cost: 0
     SlotCost: 2
-    Image: {fileID: 0}
+    Image: {fileID: -1438975050, guid: 2927f4ebdbc2e47489e0b0ecfc78212a, type: 3}
     _Health: 0
+    _Prefab: {fileID: 6588112144907391316, guid: 0cf36e9e047581642a811ebbce1e7931, type: 3}
