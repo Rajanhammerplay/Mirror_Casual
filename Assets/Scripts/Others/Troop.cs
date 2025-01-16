@@ -18,15 +18,15 @@ public class Troop : MonoBehaviour
     [SerializeField] private float m_TroopSpeed;
 
 
-    private void Start()
+
+
+    public void SetupTroop()
     {
         m_TroopHealth = m_TroopCard._TroopData._Health;
-        m_PlayerYPos = this.transform.position.y;
         m_PathTileMap = GameObject.Find("Pathparent")?.GetComponent<Tilemap>();
-
         SetPath();
-        this.gameObject.transform.position = m_PathTilePosition[0];
-        
+        this.transform.position = new Vector3(m_PathTilePosition[0].x, 1.708048f, m_PathTilePosition[0].z);
+        m_PlayerYPos = this.transform.position.y;
     }
 
     //private IEnumerator DelayedSetup()

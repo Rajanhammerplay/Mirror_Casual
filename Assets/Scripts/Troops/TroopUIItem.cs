@@ -12,11 +12,11 @@ public class TroopUIItem : MonoBehaviour
 
     public TextMeshProUGUI _SlotCostText;
 
-    public int InstanceIndex;
+    public int _InstanceIndex;
 
     public int _Count;
 
-    public int m_TroopSlotCost;
+    public int m_UnitSlotCost;
 
     public TroopType _TroopType;
 
@@ -27,14 +27,14 @@ public class TroopUIItem : MonoBehaviour
         EventActions._DropUnitOnGround += DropUnits;
     }
 
-    public void TriggerAddTroopCount()
+    public void TriggerAddUnitsCount()
     {
-        EventActions._SelectTroop.Invoke(InstanceIndex,m_TroopSlotCost);
+        EventActions._SelectTroop.Invoke(_InstanceIndex,m_UnitSlotCost);
     }
 
-    public void TriggerRemoveTroopCount()
+    public void TriggerRemoveUnitsCount()
     {
-        EventActions._DropTroop.Invoke(InstanceIndex, m_TroopSlotCost);
+        EventActions._DropTroop.Invoke(_InstanceIndex, m_UnitSlotCost);
     }
 
     public void TriggerSelectUnit()
@@ -46,15 +46,12 @@ public class TroopUIItem : MonoBehaviour
 
     public void DropUnits(int instindex)
     {
-        if(instindex == InstanceIndex)
+        if (_TroopSelected) { return; }
+
+        if(instindex == _InstanceIndex)
         {
-            if (_Count > 0)
-            {
-                _Count -= 1;
-                _CountText.text = _Count.ToString();
-            }
+            EventActions._DropTroop.Invoke(_InstanceIndex, m_UnitSlotCost);
         }
-        
     }
 
   

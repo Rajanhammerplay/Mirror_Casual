@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,55 +71,53 @@ public class InputManager : MonoBehaviour
 
                 TileBase clickedTile = Tilemap.GetTile(tilepos);
 
-                //GameObject troop = Instantiate(m_Mirror);
-                //troop.transform.position = ;
-                m_PoolManager.DropTroop(new Vector3(mousepos.x, 1.708048f, mousepos.z));
+                m_PoolManager.DropTroop();
         }
 
 
 
 
-                //    //else if (hit.collider.gameObject.tag == "mirror")
-                //    //{
-                //    //    m_PoolManager.SelectMirror(hit.collider.gameObject);
-                //    //}
-                //    //else if (hit.collider.gameObject.tag == "ground")
-                //    //{
-                //    //    m_HitPoint = hit.point;
-                //    //    //to blocks the player to place mirrors nearby others
-                //    //    Collider[] colliders = Physics.OverlapSphere(hit.point, _Radius);
-                //    //    if (colliders.Length > 0)
-                //    //    {
-                //    //        foreach (var collider in colliders)
-                //    //        {
-                //    //            if (collider.gameObject.tag == "mirror")
-                //    //            {
-                //    //                return;
-                //    //            }
-                //    //            else
-                //    //            {
-                //    //                if (EventActions._SelectedInvType != MirrorVariation.none && m_PoolManager.GetSpawnnableObject(EventActions._SelectedInvType))
-                //    //                {
-                //    //                    GameObject mirror = m_PoolManager.GetSpawnnableObject(EventActions._SelectedInvType);
-                //    //                    print("current mirror: " + mirror.name);
-                //    //                    mirror.transform.position = hit.point + new Vector3(0, mirror.GetComponent<Mirror>().yPos, 0);
-                //    //                    mirror.SetActive(true);
-                //    //                    m_PoolManager.SelectMirror(mirror);
-                //    //                    m_PoolManager.DequeuePool(mirror.GetComponent<Mirror>());
-                //    //                    EventActions._DropMirror.Invoke(mirror.GetComponent<Mirror>());
-                //    //                }
+        //    //else if (hit.collider.gameObject.tag == "mirror")
+        //    //{
+        //    //    m_PoolManager.SelectMirror(hit.collider.gameObject);
+        //    //}
+        //    //else if (hit.collider.gameObject.tag == "ground")
+        //    //{
+        //    //    m_HitPoint = hit.point;
+        //    //    //to blocks the player to place mirrors nearby others
+        //    //    Collider[] colliders = Physics.OverlapSphere(hit.point, _Radius);
+        //    //    if (colliders.Length > 0)
+        //    //    {
+        //    //        foreach (var collider in colliders)
+        //    //        {
+        //    //            if (collider.gameObject.tag == "mirror")
+        //    //            {
+        //    //                return;
+        //    //            }
+        //    //            else
+        //    //            {
+        //    //                if (EventActions._SelectedInvType != MirrorVariation.none && m_PoolManager.GetSpawnnableObject(EventActions._SelectedInvType))
+        //    //                {
+        //    //                    GameObject mirror = m_PoolManager.GetSpawnnableObject(EventActions._SelectedInvType);
+        //    //                    print("current mirror: " + mirror.name);
+        //    //                    mirror.transform.position = hit.point + new Vector3(0, mirror.GetComponent<Mirror>().yPos, 0);
+        //    //                    mirror.SetActive(true);
+        //    //                    m_PoolManager.SelectMirror(mirror);
+        //    //                    m_PoolManager.DequeuePool(mirror.GetComponent<Mirror>());
+        //    //                    EventActions._DropMirror.Invoke(mirror.GetComponent<Mirror>());
+        //    //                }
 
-                //    //            }
-                //    //        }
-                //    //    }
+        //    //            }
+        //    //        }
+        //    //    }
 
-                //    //}
-                //    //else if (hit.collider.gameObject.GetComponent<TileObject>() != null) 
-                //    //{
-                //    //    print("mouse down working on tileobject");
-                //    //}
-                //}
-            }
+        //    //}
+        //    //else if (hit.collider.gameObject.GetComponent<TileObject>() != null) 
+        //    //{
+        //    //    print("mouse down working on tileobject");
+        //    //}
+        //}
+    }
 
     //to check only clicking on UI
     private bool IsPointerOverUI()
@@ -148,7 +147,15 @@ public class InputManager : MonoBehaviour
     public void TroopSelectionUIInteractions(bool active)
     {
         TroopSelectionActiveted = active;
-       m_TroopSelectionUI.gameObject.SetActive(active);
+        if (active)
+        {
+            m_TroopSelectionUI.gameObject.transform.DOScale(new Vector3(0.96f, 0.94f, 0f), 0.8f);
+        }
+        else
+        {
+            m_TroopSelectionUI.gameObject.transform.DOScale(Vector3.zero, 0.1f);
+        }
+        
     }
 }
 

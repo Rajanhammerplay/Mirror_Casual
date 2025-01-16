@@ -15,7 +15,7 @@ public class LevelTroopSetup : MonoBehaviour
     public bool _DefaultUnitSetup;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
         if (m_LevelTroops.DefaultUnits.Count > 0 && _DefaultUnitSetup)
@@ -36,16 +36,16 @@ public class LevelTroopSetup : MonoBehaviour
             troop.transform.parent = transform;
             troop.transform.localScale = m_UIScale;
             troop.transform.Find("TroopImage").GetComponent<Image>().sprite = m_LevelTroops.TroopsOnShop[i]._TroopData.Image;
-            troop.gameObject.SetActive(_SelectedTroopsSetup);
-            troop.GetComponent<TroopUIItem>().InstanceIndex = i;
-            troop.GetComponent<TroopUIItem>().m_TroopSlotCost = m_LevelTroops.TroopsOnShop[i]._TroopData.SlotCost;
+            troop.gameObject.SetActive(true);
+            troop.GetComponent<TroopUIItem>()._InstanceIndex = i;
+            troop.GetComponent<TroopUIItem>().m_UnitSlotCost = m_LevelTroops.TroopsOnShop[i]._TroopData.SlotCost;
             if (troop.GetComponent<TroopUIItem>()._SlotCostText != null)
             {
                 troop.GetComponent<TroopUIItem>()._SlotCostText.text = m_LevelTroops.TroopsOnShop[i]._TroopData.SlotCost.ToString();
             }
             if (_SelectedTroopsSetup == false)
             {
-                TroopManager.Instance.troopSelections.Add(troop.GetComponent<TroopUIItem>());
+                UnitsManager.Instance.UnitsSelected.Add(troop.GetComponent<TroopUIItem>());
             }
         }
     }
@@ -55,20 +55,21 @@ public class LevelTroopSetup : MonoBehaviour
         var ListOfDistinctUnit = m_LevelTroops.DefaultUnits.GroupBy(n=>n).Select(group => new { Unit = group.Key, Count = group.Count() }).ToList();
         for (int i = 0; i < ListOfDistinctUnit.Count; i++)
         {
-            print("loops: " + i);
             GameObject troop = Instantiate(m_TroopUIPrefab);
             troop.transform.parent = transform;
             troop.transform.localScale = m_UIScale;
             troop.transform.Find("TroopImage").GetComponent<Image>().sprite = ListOfDistinctUnit[i].Unit._TroopData.Image;
             troop.gameObject.SetActive(_SelectedTroopsSetup);
-            troop.GetComponent<TroopUIItem>().InstanceIndex = i;
-            troop.GetComponent<TroopUIItem>().m_TroopSlotCost = ListOfDistinctUnit[i].Unit._TroopData.SlotCost;
+            troop.GetComponent<TroopUIItem>()._InstanceIndex = i;
+            troop.GetComponent<TroopUIItem>().m_UnitSlotCost = ListOfDistinctUnit[i].Unit._TroopData.SlotCost;
             troop.GetComponent<TroopUIItem>()._Count = ListOfDistinctUnit[i].Count;
             troop.GetComponent<TroopUIItem>()._TroopType = ListOfDistinctUnit[i].Unit._TroopData.Type;
             if (troop.GetComponent<TroopUIItem>()._CountText != null)
             {
                 troop.GetComponent<TroopUIItem>()._CountText.text = ListOfDistinctUnit[i].Count.ToString();
             }
+            UnitsManager.Instance.UnitsDefault.Add(troop.GetComponent<TroopUIItem>());
+            
         }
     }
 

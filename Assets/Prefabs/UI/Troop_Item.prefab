@@ -306,9 +306,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CountText: {fileID: 0}
   _SlotCostText: {fileID: 2624417803546166037}
-  InstanceIndex: 0
+  _InstanceIndex: 0
   _Count: 0
-  m_TroopSlotCost: 0
+  m_UnitSlotCost: 0
+  _TroopType: 0
+  _TroopSelected: 1
 --- !u!114 &3980847468037814213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +357,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4522647400305785585}
         m_TargetAssemblyTypeName: TroopUIItem, Assembly-CSharp
-        m_MethodName: TriggerAddTroopCount
+        m_MethodName: TriggerAddUnitsCount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
