@@ -12,9 +12,10 @@ public class EventActions
     /*units drag and drop actions*/
     public static TroopType _SelectedUnitType = TroopType.none;
     public static Action<GameObject> _SelectUnitFromPool;
-    public static Action<int> _DropUnitOnGround;
+    public static Action<TroopType> _DropUnitOnGround;
+    public static Action<TroopType> _AddUnit;
 
     /*units shop actions*/
-    public static Action<int,int> _SelectTroop;
+    public static Action<int,int> _AddTroop;
     public static Action<int, int> _DropTroop;
 }

@@ -11,9 +11,9 @@ public interface IInventoryItem
 
 public class InventoryArgs : EventArgs
 {
-    public InventoryArgs(MirrorTypes Invitem)
-    {
-        InvItem = Invitem;
-    }
-    public MirrorTypes InvItem;
+    //public InventoryArgs(MirrorTypes Invitem)
+    //{
+    //    InvItem = Invitem;
+    //}
+    //public MirrorTypes InvItem;
 }

@@ -8,13 +8,12 @@ using UnityEngine.UIElements;
 public class LevelTroops : ScriptableObject
 {
     [Header("TroopShopSetup")]
-    public List<TroopCard> TroopsOnShop;
+    public List<UnitItem> TroopsOnShop;
     public int maxTroopsSlot;
 
     [Header("DefaultUnitSetup")]
-    public List<TroopCard> DefaultUnits;
+    public List<UnitItem> DefaultUnits;
     private int TotalUnitsCount = 0;
-
 
     public bool CheckTroopSlotExceeds()
     {
@@ -24,7 +23,7 @@ public class LevelTroops : ScriptableObject
         {
             if (DefaultUnits[i] != null)
             {
-                TotalUnitsCount += DefaultUnits[i]._TroopData.SlotCost;
+                TotalUnitsCount += DefaultUnits[i]._UnitData.SlotCost;
             }
 
         }
@@ -36,13 +35,6 @@ public class LevelTroops : ScriptableObject
         if (maxTroopsSlot < 0) maxTroopsSlot = 0;
 
         DefaultUnits.RemoveAll(item => item == null);
-
-        //if(TotalUnitsCount == 0)
-        //{
-        //    Debug.LogError("Default Unit Item should include Troop");
-        //}
-
-        Debug.Log("check troop slot: "+CheckTroopSlotExceeds()+"total units count: "+TotalUnitsCount);
 
         if (CheckTroopSlotExceeds())
         {

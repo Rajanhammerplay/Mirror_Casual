@@ -19,9 +19,8 @@ MonoBehaviour:
   maxTroopsSlot: 15
   DefaultUnits:
   - {fileID: 11400000, guid: 39645f3ff6664f447a5fcfb90884f287, type: 2}
-  - {fileID: 11400000, guid: 8bd05927aade72649b749e5cdeb49de0, type: 2}
-  - {fileID: 11400000, guid: 2b1fca04893b41e439dc365a0e3f11db, type: 2}
-  - {fileID: 11400000, guid: 2b1fca04893b41e439dc365a0e3f11db, type: 2}
-  - {fileID: 11400000, guid: 2b1fca04893b41e439dc365a0e3f11db, type: 2}
   - {fileID: 11400000, guid: 39645f3ff6664f447a5fcfb90884f287, type: 2}
   - {fileID: 11400000, guid: 8bd05927aade72649b749e5cdeb49de0, type: 2}
+  - {fileID: 11400000, guid: 2b1fca04893b41e439dc365a0e3f11db, type: 2}
+  - {fileID: 11400000, guid: 2b1fca04893b41e439dc365a0e3f11db, type: 2}
+  - {fileID: 11400000, guid: 2b1fca04893b41e439dc365a0e3f11db, type: 2}

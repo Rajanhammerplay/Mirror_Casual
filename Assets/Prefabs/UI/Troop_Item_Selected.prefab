@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3028439913442333413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bab912ee4f2d4649b7fa20fbfe81476, type: 3}
+  m_Script: {fileID: 11500000, guid: c2a1067bbaedc934aa127f12d5d0c1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _CountText: {fileID: 2669217502965505796}
@@ -440,7 +440,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &8323091769532933954
 GameObject:

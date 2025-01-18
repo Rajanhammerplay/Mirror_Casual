@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "TroopData",menuName = "ScriptableObject/MirrorCasual/TroopData")]
-public class TroopCard : ScriptableObject
+public class UnitItem : ScriptableObject
 {
-    public TroopData _TroopData;
+    public UnitsData _UnitData;
 }
 
 public enum TroopType
@@ -19,7 +19,7 @@ public enum TroopType
 }
 
 [System.Serializable]
-public class TroopData
+public class UnitsData
 {
     public TroopType Type;
     public string Name;
@@ -30,4 +30,6 @@ public class TroopData
     public Sprite Image;
     public float _Health;
     public GameObject _Prefab;
+    public int _InstanceIndex;
+    public int _Count;
 }

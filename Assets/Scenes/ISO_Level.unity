@@ -6159,7 +6159,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1473895217}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: TroopSelectionUIInteractions
+        m_MethodName: UnitSelectionUIInteractions
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17460,11 +17460,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c5820ce2381c742ba24c62487a21e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LevelTroops: {fileID: 11400000, guid: 2c3bedaae05afd948a7a6d8d3bb2e2eb, type: 2}
+  m_LevelUnits: {fileID: 0}
   m_TroopUIPrefab: {fileID: 3028439913442333413, guid: f440c64525bdd8a45aeafefd3ab0972f, type: 3}
   m_UIScale: {x: 0.15, y: 0.6, z: 0}
-  _SelectedTroopsSetup: 1
-  _DefaultUnitSetup: 1
+  _CanDroopCount: 1
+  _CanAddCount: 0
 --- !u!1001 &478814556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23582,7 +23582,9 @@ MonoBehaviour:
   _TotalTroopCount: 0
   m_Totalslot: {fileID: 79606322}
   m_slot: {fileID: 745213808}
-  troopSelections: []
+  m_SelectionUnitParent: {fileID: 1174131879}
+  m_SelectedUnitParent: {fileID: 917464228}
+  m_DefaultUnitParent: {fileID: 477247248}
 --- !u!1001 &691492010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31017,11 +31019,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c5820ce2381c742ba24c62487a21e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LevelTroops: {fileID: 11400000, guid: 2c3bedaae05afd948a7a6d8d3bb2e2eb, type: 2}
+  m_LevelUnits: {fileID: 0}
   m_TroopUIPrefab: {fileID: 3028439913442333413, guid: 9c34604de1d118d439de3f5766f8fc39, type: 3}
   m_UIScale: {x: 1.2, y: 3.4, z: 0}
-  _SelectedTroopsSetup: 0
-  _DefaultUnitSetup: 0
+  _CanDroopCount: 1
+  _CanAddCount: 0
 --- !u!1001 &919675837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33898,6 +33900,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5040188018845658523, guid: e49d578103dc202488dc3fa9add48820, type: 3}
   m_PrefabInstance: {fileID: 992447620}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &996362881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996362883}
+  - component: {fileID: 996362882}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &996362882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996362881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70509dac6db6cd548893df571fd9a7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _LevelUnitPool:
+  - {fileID: 11400000, guid: e864f7a1b27b0c14689c49208885f862, type: 2}
+--- !u!4 &996362883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996362881}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.368088, y: 154.86588, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &996911541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40056,11 +40104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c5820ce2381c742ba24c62487a21e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LevelTroops: {fileID: 11400000, guid: 2c3bedaae05afd948a7a6d8d3bb2e2eb, type: 2}
+  m_LevelUnits: {fileID: 0}
   m_TroopUIPrefab: {fileID: 3028439913442333413, guid: 0a140d4168c75ce4bb3dd8010c7748bd, type: 3}
   m_UIScale: {x: 1.3, y: 4.7, z: 0}
-  _SelectedTroopsSetup: 1
-  _DefaultUnitSetup: 0
+  _CanDroopCount: 0
+  _CanAddCount: 1
 --- !u!1001 &1176839266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63304,7 +63352,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1473895217}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: TroopSelectionUIInteractions
+        m_MethodName: UnitSelectionUIInteractions
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -74492,3 +74540,4 @@ SceneRoots:
   - {fileID: 505289293}
   - {fileID: 1540384118}
   - {fileID: 690215029}
+  - {fileID: 996362883}

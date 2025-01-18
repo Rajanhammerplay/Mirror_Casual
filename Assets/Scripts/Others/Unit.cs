@@ -7,4 +7,5 @@ public class Unit : MonoBehaviour
     public TroopType _UnitType;
     public int _UIInstanceIndex;
     public int _SlotCost;
+    public int _UnitObjectId;
 }

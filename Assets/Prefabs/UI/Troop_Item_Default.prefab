@@ -301,15 +301,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3028439913442333413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bab912ee4f2d4649b7fa20fbfe81476, type: 3}
+  m_Script: {fileID: 11500000, guid: c2a1067bbaedc934aa127f12d5d0c1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _CountText: {fileID: 2624417803546166037}
-  _SlotCostText: {fileID: 2624417803546166037}
-  InstanceIndex: 0
+  _SlotCostText: {fileID: 0}
+  _InstanceIndex: 0
   _Count: 0
-  m_TroopSlotCost: 0
+  m_UnitSlotCost: 0
   _TroopType: 0
+  _TroopSelected: 0
+  _UnitItem: {fileID: 0}
 --- !u!114 &3980847468037814213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +357,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4522647400305785585}
-        m_TargetAssemblyTypeName: TroopUIItem, Assembly-CSharp
+        m_TargetAssemblyTypeName: UnitUIItem, Assembly-CSharp
         m_MethodName: TriggerSelectUnit
         m_Mode: 1
         m_Arguments:

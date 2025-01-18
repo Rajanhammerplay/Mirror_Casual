@@ -42,14 +42,6 @@ public class InputManager : MonoBehaviour
         Tilemap = GetComponent<Tilemap>();
     }
 
-    //method for recieve event
-    public void AddInvItem(object sender, InventoryArgs args)
-    {
-        if (args != null)
-        {
-            m_Mirror = args.InvItem._MirrorPrefab;
-        }
-    }
     // Update is called once per frame
     void Update()
     {
@@ -144,7 +136,8 @@ public class InputManager : MonoBehaviour
         Gizmos.DrawSphere(m_HitPoint, _Radius);
     }
 
-    public void TroopSelectionUIInteractions(bool active)
+    //to open and close unit Selection Panel
+    public void UnitSelectionUIInteractions(bool active)
     {
         TroopSelectionActiveted = active;
         if (active)

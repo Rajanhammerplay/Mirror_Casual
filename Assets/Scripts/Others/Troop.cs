@@ -3,37 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+//responsible for troop 
 public class Troop : MonoBehaviour
 {
-    [SerializeField] TroopCard m_TroopCard;
-
+    [SerializeField] UnitItem m_TroopCard;
     [SerializeField] HelathBar m_HealthBar;
-
-    public float m_TroopHealth;
+    [SerializeField] float m_TroopSpeed;
     private float m_PlayerYPos;
+    public float m_TroopHealth;
+
     [Header("Movement Props")]
     Tilemap m_PathTileMap;
     private List<GameObject> m_PathTiles = new List<GameObject>();
     private List<Vector3> m_PathTilePosition = new List<Vector3>();
-    [SerializeField] private float m_TroopSpeed;
-
-
-
 
     public void SetupTroop()
     {
-        m_TroopHealth = m_TroopCard._TroopData._Health;
+        m_TroopHealth = m_TroopCard._UnitData._Health;
         m_PathTileMap = GameObject.Find("Pathparent")?.GetComponent<Tilemap>();
         SetPath();
         this.transform.position = new Vector3(m_PathTilePosition[0].x, 1.708048f, m_PathTilePosition[0].z);
         m_PlayerYPos = this.transform.position.y;
     }
 
-    //private IEnumerator DelayedSetup()
-    //{
-
-    //}
-
+    // to move troop once dropped
     public void TriggerMove()
     {
         StartCoroutine(MoveTroop());
@@ -44,7 +37,7 @@ public class Troop : MonoBehaviour
         if(m_TroopHealth > 0f)
         {
             m_TroopHealth -= 0.6f;
-            m_HealthBar.UpdateHealth((m_TroopHealth/m_TroopCard._TroopData._Health));
+            m_HealthBar.UpdateHealth((m_TroopHealth/m_TroopCard._UnitData._Health));
             return;
         }
         Destroy(this.gameObject);
@@ -58,8 +51,13 @@ public class Troop : MonoBehaviour
             TileObject tileobject = tiletransform.GetComponent<TileObject>();
             m_PathTiles.Add(tiletransform.gameObject);
             m_PathTilePosition.Add(tileobject.GetTileData().tileworldpos);
-            print("Tile pos:" + tileobject.GetTileData().tilepos +" world pos: "+ tileobject.GetTileData().tileworldpos);
         }
+    }
+
+    public void ClearPath()
+    {
+        m_PathTiles.Clear();
+        m_PathTilePosition.Clear(); 
     }
 
     public IEnumerator MoveTroop()
@@ -70,18 +68,8 @@ public class Troop : MonoBehaviour
             Vector3 Troopos = new Vector3(transform.position.x, m_PlayerYPos, transform.position.z);
             Vector3 targetpos = new Vector3(tiletransformpos.x, m_PlayerYPos, tiletransformpos.z);
 
-            //transform.LookAt();
             Quaternion targetRotation = Quaternion.LookRotation( m_PathTiles[i].transform.forward, Vector3.up);
             transform.rotation = targetRotation;
-
-            //  transform.LookAt(new Vector3(targetpos.x,targetpos.y,targetpos.z));
-            //Vector3 direction = (targetpos - Troopos).normalized;
-            //if (direction != Vector3.zero)
-            //{
-            //    // Create rotation only around Y axis
-            //    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            //    transform.rotation = targetRotation;
-            //}
 
             Collider[] nearbyColliders = Physics.OverlapSphere(Troopos, 1f);
             if (nearbyColliders.Length > 0)
@@ -109,6 +97,22 @@ public class Troop : MonoBehaviour
             i++;
 
         }
+        if (i == m_PathTilePosition.Count)
+        {
+            ResetTroop();
+        }
+    }
+
+    public void ResetTroop()
+    {
+        Vector3 targetpos = new Vector3(m_PathTilePosition[0].x, m_PlayerYPos, m_PathTilePosition[0].z);
+
+        Quaternion targetRotation = Quaternion.LookRotation(m_PathTiles[0].transform.forward, Vector3.up);
+        transform.gameObject.SetActive(false);
+        transform.rotation = targetRotation;
+        transform.position = targetpos;
+        this.ClearPath();
+        PoolManager._instance._UnitPoolDict[m_TroopCard._UnitData.Type].Enqueue(this.gameObject);
     }
 
 }

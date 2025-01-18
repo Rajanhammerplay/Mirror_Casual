@@ -6,112 +6,76 @@ using System.Linq;
 
 public class PoolManager : MonoBehaviour
 {
-    [SerializeField] private GameObject m_ParentObject;
-    [SerializeField] private LevelTroops m_UnitsData;
-
-    private List<GameObject> m_UnitQueue = new List<GameObject>();
-    List<GameObject> m_UnitTempList = new List<GameObject>();
-
-    private int m_LastActiveInstanceIndex = -1;
+    public static PoolManager _instance;
+    private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
+    public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDict = new Dictionary<TroopType, Queue<GameObject>>();
 
     void Start()
     {
-        //EventActions._SelectUnitFromPool += SelectUnit;
+        LevelUnitPool lvlunitpool = ScriptableObject.Instantiate(LevelManager.instance._LevelUnitPool[0]);
+        m_ListOfUnitPool = lvlunitpool._ListOfUnitPool;
         IntializePool();
+        _instance = this;
     }
 
-    private void IntializePool()
+    public void IntializePool()
     {
-        Dictionary<string, int> unitsdata = new Dictionary<string, int>();
 
-        int currentindex = 0;
-
-        for (int i = 0; i < m_UnitsData.DefaultUnits.Count; i++)
+        for (int i = 0; i < m_ListOfUnitPool.Count; i++)
         {
-            GameObject UnitObject = Instantiate(m_UnitsData.DefaultUnits[i]._TroopData._Prefab, m_ParentObject.transform);
-            UnitObject.SetActive(false);
+            Queue<GameObject> queue = new Queue<GameObject>();
 
-            UnitsManager.Instance._TotalTroopCount += m_UnitsData.DefaultUnits[i]._TroopData.SlotCost;
-            UnitsManager.Instance.UpdateTroopSlot();
-            UnitObject.GetComponent<Unit>()._SlotCost = m_UnitsData.DefaultUnits[i]._TroopData.SlotCost;
-
-            string unittype = m_UnitsData.DefaultUnits[i]._TroopData.Type.ToString();
-            if (!unitsdata.ContainsKey(unittype))
+            for (int j = 0; j < m_ListOfUnitPool[i].PoolSize; j++)
             {
-                unitsdata[unittype] = currentindex;
-                currentindex++;
+                GameObject unitobject = Instantiate(m_ListOfUnitPool[i].Prefab);
+                unitobject.name = m_ListOfUnitPool[i].Type +"_"+j.ToString();
+                unitobject.transform.parent = transform;
+                unitobject.gameObject.SetActive(false);
+                queue.Enqueue(unitobject);
             }
-
-            UnitObject.transform.name = m_UnitsData.DefaultUnits[i]._TroopData.Type + "_" + unitsdata[unittype];
-            UnitObject.GetComponent<Unit>()._UIInstanceIndex = unitsdata[unittype];
-
-            if (UnitObject.GetComponent<Troop>() != null)
-            {
-                UnitObject.GetComponent<Troop>().SetupTroop();
-            }
-            m_UnitQueue.Add(UnitObject);
-            m_UnitTempList.Add(UnitObject);
-        }
-        var ListOfDistinctUnit = m_UnitsData.DefaultUnits.GroupBy(n => n).Select(group => new { Unit = group.Key, Count = group.Count() }).ToList();
-        for (int i = 0; i < ListOfDistinctUnit.Count; i++)
-        {
-            UnitsManager.Instance.UpdateUnitsCount(i, ListOfDistinctUnit[i].Count, false);
+            _UnitPoolDict.Add(m_ListOfUnitPool[i].Type, queue);
         }
     }
-    //public void SelectUnit(GameObject Unit)
-    //{
-    //    foreach (var unitobj in m_UnitTempList)
-    //    {
-    //        if(unitobj.transform.name == Unit.name)
-    //        {
-    //            unitobj.GetComponent<TroopUIItem>()._TroopSelected = true;
-    //        }
-    //        else
-    //        {
-    //            unitobj.GetComponent<TroopUIItem>()._TroopSelected = false;
-    //        }
-    //    }
-    //}
     public GameObject GetSpawnableObject(TroopType unittype)
     {
-        GameObject Unit = null;
-        foreach (var unitobj in m_UnitQueue)
+        if (!_UnitPoolDict.ContainsKey(unittype))
         {
-            if (unitobj.GetComponent<Unit>()._UnitType == unittype) 
-            { 
-                 Unit = unitobj;
-            }
+            Debug.LogWarning("Type is not exists in Pool");
+            return null;
         }
-        return Unit;
+        if(_UnitPoolDict[unittype].Count > 0)
+        {
+            GameObject spwanableunit = _UnitPoolDict[unittype].Dequeue();
+            return spwanableunit;
+
+        }
+        else
+        {
+            Debug.LogWarning("Unit is Out of Stock");
+        }
+        
+        return null;
+
     }
-    public void DequeuePool(GameObject Unit)
-    {
-        m_UnitQueue.Remove(Unit);
-    }
+
 
     public void DropTroop()
     {
         GameObject unitfrompool = GetSpawnableObject(EventActions._SelectedUnitType);
         if (unitfrompool != null)
         {
-            unitfrompool.SetActive(true);
-            m_LastActiveInstanceIndex = unitfrompool.GetComponent<Unit>()._UIInstanceIndex;
-            EventActions._DropUnitOnGround.Invoke(unitfrompool.GetComponent<Unit>()._UIInstanceIndex);
-            if(unitfrompool.GetComponent<Troop>() != null)
+            unitfrompool.gameObject.SetActive(true);
+            UnitsManager.Instance.DropUnit(EventActions._SelectedUnitType);
+                                                                                                                            
+
+            if (unitfrompool.GetComponent<Troop>() != null)
             {
+                unitfrompool.GetComponent<Troop>().SetupTroop();
                 unitfrompool.GetComponent<Troop>().TriggerMove();
             }
-            UnitsManager.Instance._TotalTroopCount -= unitfrompool.GetComponent<Unit>()._SlotCost;
-            UnitsManager.Instance.UpdateTroopSlot();
-            UnitsManager.Instance.UpdateUnitsCount(unitfrompool.GetComponent<Unit>()._UIInstanceIndex,1,true);
-            DequeuePool(unitfrompool);
         }
-        else
-        {
-            EventActions._DropUnitOnGround.Invoke(m_LastActiveInstanceIndex);
-            print("unit from pool: null  ");
-        }
-
+            
     }
 
 }
+
