@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 //responsible to manage Units Data Detais while add and remove
@@ -12,6 +13,7 @@ public class UnitsManager : MonoBehaviour
     public LevelTroops _LevelTroopData;
     public int _TotalTroopCount = 0;
     public Dictionary<UnitItem, int> _UnitItemsList = new Dictionary<UnitItem, int>();
+    public List<GameObject> _MirrorPlacableTiles = new List<GameObject>();
     public List<UnitDetails> _UnitItemsTempList = new List<UnitDetails>(); // which controls the count of units in both main and selected units
 
     [SerializeField] private TextMeshProUGUI m_Totalslot;
@@ -20,6 +22,8 @@ public class UnitsManager : MonoBehaviour
     [SerializeField] private Transform m_SelectionUnitParent;
     [SerializeField] private Transform m_SelectedUnitParent;
     [SerializeField] private Transform m_DefaultUnitParent;
+    [SerializeField] private float _OtherMirrorInRadius;
+    [SerializeField] private Tilemap Tilemap;
 
     private void Awake()
     {
@@ -119,6 +123,50 @@ public class UnitsManager : MonoBehaviour
             _TotalTroopCount += slotcost;
             UpdateTroopSlot();
         }
+    }
+
+    //to check already any mirror there in given radius
+    public bool IsMirrorDetected(Vector3 pos)
+    {
+        Collider[] colliders = Physics.OverlapSphere(pos,_OtherMirrorInRadius);
+        if (colliders.Length > 0)
+        {
+            foreach (var collider in colliders)
+            {
+                if (collider.gameObject.tag == "mirror")
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public GameObject IsMirrorPlacable(GameObject tileobj)
+    {
+        if (_MirrorPlacableTiles.Count > 0)
+        {
+            foreach (var tile in _MirrorPlacableTiles)
+            {
+                if(tile == tileobj)
+                {
+                    return tile;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void HighlightMirrorTiles(bool h)
+    {
+        if (_MirrorPlacableTiles.Count > 0)
+        {
+            foreach (var tile in _MirrorPlacableTiles)
+            {
+                tile.gameObject.GetComponent<TileObject>().HighLightTile(h ? 3f : 0f);
+            }
+        }
+
     }
 }
 public class UnitDetails

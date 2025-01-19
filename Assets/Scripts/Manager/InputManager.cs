@@ -52,18 +52,46 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-                if (IsPointerOverUI() || TroopSelectionActiveted || EventActions._SelectedUnitType == TroopType.none)
+            if (IsPointerOverUI() || TroopSelectionActiveted)
+            {
+                return;
+            }
+
+            Vector3 pos = Vector3.zero;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out RaycastHit hit);
+
+            if (hit.collider.GetComponent<Mirror>())
+            {
+                PoolManager._instance.UpdateMirrorStatus(hit.collider.gameObject);
+            }
+
+            if(EventActions._SelectedUnitType != TroopType.none)
+            {
+                if (EventActions._SelectedUnitType == TroopType.Mirror)
                 {
-                    return;
+
+                    if (hit.collider.transform.GetComponent<TileObject>())
+                    {
+                        Vector3 tilepos = hit.collider.transform.GetComponent<TileObject>().GetTileData().tileworldpos;
+                        if (UnitsManager.Instance.IsMirrorPlacable(hit.collider.gameObject) && UnitsManager.Instance.IsMirrorDetected(tilepos))
+                        {
+                            pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
+                            m_PoolManager.DropTroop(pos);
+                            print("current type:" + EventActions._SelectedUnitType + "  " + hit.collider.transform.GetComponent<TileObject>().GetTileData().tileworldpos);
+                        }
+                    }
                 }
-                Vector3 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mousepos.z = 0;
-
-                Vector3Int tilepos = Tilemap.WorldToCell(mousepos);
-
-                TileBase clickedTile = Tilemap.GetTile(tilepos);
-
-                m_PoolManager.DropTroop();
+                else
+                {
+                    if (hit.collider.GetComponent<Mirror>())
+                    {
+                        return;
+                    }
+                    m_PoolManager.DropTroop(pos);
+                }
+            }
+            
         }
 
 

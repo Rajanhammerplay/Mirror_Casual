@@ -31,6 +31,11 @@ public class TileObject : MonoBehaviour
         tileInfo.tileworldpos = this.transform.position;
         return tileInfo;
     }
+
+    public void HighLightTile(float value)
+    {
+      this.GetComponent<Renderer>().material.SetFloat("_BlendStrength",value);
+    }
 }
 
 public class TileInfo

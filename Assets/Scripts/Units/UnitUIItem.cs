@@ -83,11 +83,20 @@ public class UnitUIItem : MonoBehaviour
         }
     }
 
+   
 
 
     public void TriggerSelectUnit()
     {
         EventActions._SelectedUnitType = _TroopType;
+        if(EventActions._SelectedUnitType == TroopType.Mirror)
+        {
+            UnitsManager.Instance.HighlightMirrorTiles(true);
+        }
+        else
+        {
+            UnitsManager.Instance.HighlightMirrorTiles(false);
+        }
     }
 
   

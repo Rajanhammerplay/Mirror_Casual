@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //responsible for troop 
-public class Troop : MonoBehaviour
+public class Troop : MonoBehaviour, IIUnityItem
 {
     [SerializeField] UnitItem m_TroopCard;
     [SerializeField] HelathBar m_HealthBar;
@@ -113,6 +113,19 @@ public class Troop : MonoBehaviour
         transform.position = targetpos;
         this.ClearPath();
         PoolManager._instance._UnitPoolDict[m_TroopCard._UnitData.Type].Enqueue(this.gameObject);
+    }
+
+    public void DropItem(GameObject troop, Vector3 p)
+    {
+        if (troop == this.gameObject)
+        {
+            this.gameObject.gameObject.SetActive(true);
+            UnitsManager.Instance.DropUnit(EventActions._SelectedUnitType);
+
+            this.gameObject.GetComponent<Troop>().SetupTroop();
+            this.gameObject.GetComponent<Troop>().TriggerMove();
+        }
+
     }
 
 }

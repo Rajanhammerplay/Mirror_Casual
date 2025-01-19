@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mirror : MonoBehaviour
+public class Mirror : MonoBehaviour,IIUnityItem
 {
 
     float rotangle;
@@ -15,6 +15,8 @@ public class Mirror : MonoBehaviour
     public MirrorVariation _MirrorType;
 
     public float yPos;
+
+
 
     private void Start()
     {
@@ -32,9 +34,20 @@ public class Mirror : MonoBehaviour
     //to rotate mirror
     public void RotateMirror()
     {
-            float clampedrot = rotangle + Input.GetAxis("Horizontal") * _RotSpeed * Time.deltaTime;
-            rotangle = Mathf.Clamp(clampedrot, -30f, 30f);
-            transform.localRotation = Quaternion.Euler(new Vector3(0, clampedrot, -4.221f));
+        float clampedrot = rotangle + Input.GetAxis("Horizontal") * _RotSpeed * Time.deltaTime;
+        rotangle = Mathf.Clamp(clampedrot, -30f, 30f);
+        transform.localRotation = Quaternion.Euler(new Vector3(0, clampedrot, -4.221f));
+    }
+
+    public void DropItem(GameObject go, Vector3 p)
+    {
+        if (go == this.gameObject)
+        {
+            this.gameObject.SetActive(true);
+
+            this.gameObject.transform.position = p;
+            UnitsManager.Instance.DropUnit(EventActions._SelectedUnitType);
+        }
     }
 }
 

@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public interface IInventoryItem 
+public interface IIUnityItem 
 {
- 
+    public void DropItem(GameObject go,Vector3 pos);
 }
 
 public class InventoryArgs : EventArgs
