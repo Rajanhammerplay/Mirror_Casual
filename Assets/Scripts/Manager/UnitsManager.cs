@@ -163,7 +163,7 @@ public class UnitsManager : MonoBehaviour
         {
             foreach (var tile in _MirrorPlacableTiles)
             {
-                tile.gameObject.GetComponent<TileObject>().HighLightTile(h ? 3f : 0f);
+                tile.gameObject.GetComponent<TileObject>().HighLightTile(h);
             }
         }
 

@@ -60,7 +60,6 @@ public class InputManager : MonoBehaviour
             Vector3 pos = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out RaycastHit hit);
-
             if (hit.collider.GetComponent<Mirror>())
             {
                 PoolManager._instance.UpdateMirrorStatus(hit.collider.gameObject);

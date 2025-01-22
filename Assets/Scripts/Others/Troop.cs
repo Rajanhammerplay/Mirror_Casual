@@ -9,8 +9,11 @@ public class Troop : MonoBehaviour, IIUnityItem
     [SerializeField] UnitItem m_TroopCard;
     [SerializeField] HelathBar m_HealthBar;
     [SerializeField] float m_TroopSpeed;
+    
+
     private float m_PlayerYPos;
     public float m_TroopHealth;
+    public Canvas m_HealthBarCanvas;
 
     [Header("Movement Props")]
     Tilemap m_PathTileMap;

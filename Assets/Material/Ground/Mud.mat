@@ -22,11 +22,21 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 6d287653541148348a5fef1fb946dd66, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - NOISETEX: 0
     - _BlendStrength: 0
+    - _BlendStrength_1: 0.7
+    - _EdgeImapctMax: 0.4
+    - _FresnelImapct: 0
+    - _FresnelIntense: 9.1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color_1: {r: 0.68163824, g: 0.93207544, b: 0.20927721, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -36,6 +36,7 @@ public class LevelUnitSetup : MonoBehaviour
             troop.GetComponent<UnitUIItem>()._Count = unititem.Value;
             troop.GetComponent<UnitUIItem>()._TroopType = unititem.Key._UnitData.Type;
             troop.GetComponent<UnitUIItem>()._UnitItem = unititem.Key;
+            troop.GetComponent<RectTransform>().position = new Vector3(troop.GetComponent<RectTransform>().position.x, troop.GetComponent<RectTransform>().position.y,0f);
             if (troop.GetComponent<UnitUIItem>()._SlotCostText != null)
             {
                 troop.GetComponent<UnitUIItem>()._SlotCostText.text = unititem.Key._UnitData.SlotCost.ToString();

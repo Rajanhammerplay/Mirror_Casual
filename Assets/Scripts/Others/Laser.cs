@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Laser 
 {
-    private LineRenderer m_Beam;
+    public LineRenderer m_Beam;
 
     private GameObject m_BeamObject;
 
@@ -22,25 +22,33 @@ public class Laser
         m_BeamObject = new GameObject();
         m_BeamObject.name = "LaserBeam";
         m_Beam = m_BeamObject.AddComponent<LineRenderer>() as LineRenderer;
+        m_Beam.sortingLayerName = "Ray";
         m_Beam.startColor = Color.red;
-        m_Beam.endColor = Color.red;
-        m_Beam.startWidth = 0.02f;
+        m_Beam.endColor = Color.white;
+        m_Beam.startWidth = 1f;
         m_Beam.endWidth = 0.02f;
+        
         this.pos = starpos;
         this.dir = rotation;
         m_Beam.material = Raymaterial;
         this.m_InputManager = InputManager;
 
-        CastBeam(this.pos, this.dir, m_Beam);
+        m_BeamIndices.Capacity = 10;
     }
 
-    void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam)
+    public void UpdateLaser(Vector3 startPos, Vector3 direction)
+    {
+        m_BeamIndices.Clear();
+        CastBeam(startPos, direction, m_Beam);
+    }
+
+    public void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam)
     {
         m_BeamIndices.Add(start);
-
+        LayerMask excludeRays = LayerMask.GetMask("Ray");
         Ray ray = new Ray(start, dir);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit,30,1))
+        if (Physics.Raycast(ray, out hit,30,~excludeRays))
         {
             ReflectMirror(hit,dir,beam);
         }
@@ -75,7 +83,7 @@ public class Laser
         {
             m_BeamIndices.Add(hitinfo.point);
             UpdateIndices();
-            hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
+           // hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
         }
         else
         {

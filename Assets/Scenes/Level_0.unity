@@ -575,8 +575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2939be499285c354db5fd0e1990892c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentObject: {fileID: 380113583}
-  m_InvData: {fileID: 11400000, guid: db2e55a84a5f362428f49ca0b40a5ef5, type: 2}
 --- !u!4 &834480969
 Transform:
   m_ObjectHideFlags: 0
@@ -1016,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1073998731096710086, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1187,6 +1189,10 @@ PrefabInstance:
     - target: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
       propertyPath: m_Name
       value: Enemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1073998731096710086, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
       propertyPath: m_RootOrder
@@ -1375,6 +1381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRaycasted: 0
   m_Mirror: {fileID: 6588112144907391316, guid: 0cf36e9e047581642a811ebbce1e7931, type: 3}
+  m_TroopSelectionUI: {fileID: 0}
   _Radius: 0.1
   m_MirrorPoolSize: 5
   LayerMaskToIgnore:
@@ -1478,6 +1485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1073998731096710086, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1538,6 +1549,10 @@ PrefabInstance:
     - target: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1073998731096710086, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
       propertyPath: m_RootOrder
@@ -1600,8 +1615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2504c19dee4e3fe4ba06486ccb963aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_Parent: {fileID: 438651872}
-  m_InvData: {fileID: 11400000, guid: db2e55a84a5f362428f49ca0b40a5ef5, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

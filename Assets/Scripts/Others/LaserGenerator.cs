@@ -9,9 +9,23 @@ public class LaserGenerator : MonoBehaviour
     public Material m_BeamMaterial;
 
     public InputManager _InputManager;
+
+    public bool _CanCastLaser;
+    private void Start()
+    {
+        m_laser = new Laser(gameObject.transform.position, gameObject.transform.forward, m_BeamMaterial, _InputManager);
+    }
+
     private void Update()
     {
-       Destroy(GameObject.Find("LaserBeam"));
-       m_laser = new Laser(gameObject.transform.position,gameObject.transform.forward,m_BeamMaterial,_InputManager);
+        if (_CanCastLaser)
+        {
+            m_laser.UpdateLaser(gameObject.transform.position, gameObject.transform.forward);
+        }
+    }
+
+    public void CastLaser()
+    {
+        
     }
 }

@@ -10,16 +10,25 @@ Shader "Unlit/CounterUI"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags 
+        { "RenderType"="Opaque"
+          "IgnoreProjector" = "True"
+        }
         Blend SrcAlpha OneMinusSrcAlpha
         BlendOp Add
         LOD 100
+        ZWrite Off
+        Cull Off
 
         Pass
         {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 3.5
+            #pragma multi_compile_instancing
+            #pragma prefer_hlslcc gles
+            #pragma exclude_renderers d3d11_9x
 
 
             #include "UnityCG.cginc"
@@ -72,4 +81,5 @@ Shader "Unlit/CounterUI"
             ENDCG
         }
     }
+Fallback "Unlit/CounterUI"
 }

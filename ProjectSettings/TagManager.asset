@@ -14,8 +14,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Troop
+  - Ray
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 1469146131
+    locked: 0
+  - name: Ray
+    uniqueID: 1418454299
     locked: 0

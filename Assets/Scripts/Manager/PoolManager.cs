@@ -10,6 +10,7 @@ public class PoolManager : MonoBehaviour
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDict = new Dictionary<TroopType, Queue<GameObject>>();
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDictCpy = new Dictionary<TroopType, Queue<GameObject>>();
     private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
+    [SerializeField] private Camera m_UICamera;
 
     void Start()
     {
@@ -33,6 +34,11 @@ public class PoolManager : MonoBehaviour
                 unitobject.name = m_ListOfUnitPool[i].Type +"_"+j.ToString();
                 unitobject.transform.parent = transform;
                 unitobject.gameObject.SetActive(false);
+                //if(unitobject.GetComponent<Troop>()?.m_HealthBarCanvas != null)
+                //{
+                //    unitobject.GetComponent<Troop>().m_HealthBarCanvas.worldCamera = Camera.main;
+                //}
+                
                 queue.Enqueue(unitobject);
                 queuecpy.Enqueue(unitobject);
             }

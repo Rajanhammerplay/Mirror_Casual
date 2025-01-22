@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 11400000, guid: d2acf5faded6d5d46944fedf09c5fd65, type: 2}
+  EdgeBounds: {x: 0.4, y: 0.6}
