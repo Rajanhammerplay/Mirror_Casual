@@ -9,7 +9,10 @@ public class PoolManager : MonoBehaviour
     public static PoolManager _instance;
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDict = new Dictionary<TroopType, Queue<GameObject>>();
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDictCpy = new Dictionary<TroopType, Queue<GameObject>>();
+    public VariableJoystick _JoyStick;
+
     private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
+
     [SerializeField] private Camera m_UICamera;
 
     void Start()
@@ -18,6 +21,15 @@ public class PoolManager : MonoBehaviour
         m_ListOfUnitPool = lvlunitpool._ListOfUnitPool;
         IntializePool();
         _instance = this;
+        _JoyStick.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        //if(EventActions._SelectedUnitType != TroopType.Mirror)
+        //{
+        //    _JoyStick.gameObject.SetActive(false);
+        //}
     }
 
     public void IntializePool()

@@ -25,7 +25,13 @@ public class UnitUIItem : MonoBehaviour
 
     public UnitItem _UnitItem;
 
-
+    private void Update()
+    {
+        if(EventActions._SelectedUnitType != TroopType.Mirror)
+        {
+            UnitsManager.Instance.HighlightMirrorTiles(false);
+        }
+    }
     public void TriggerAddUnitsCount()
     {
         UnitsManager.Instance.AddUnit(this._TroopType);

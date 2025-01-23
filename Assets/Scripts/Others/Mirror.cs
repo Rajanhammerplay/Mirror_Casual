@@ -12,8 +12,6 @@ public class Mirror : MonoBehaviour,IIUnityItem
 
     public bool _IsSelected = false;
 
-    public MirrorVariation _MirrorType;
-
     public float yPos;
 
 
@@ -25,16 +23,19 @@ public class Mirror : MonoBehaviour,IIUnityItem
     // Update is called once per frame
     void Update()
     {
-        if (_IsSelected && Input.GetAxis("Horizontal")!=0)
+        print("joy stick input:" + PoolManager._instance._JoyStick.input.x);
+        if (_IsSelected && PoolManager._instance._JoyStick.input.x != 0)
         {
             RotateMirror();
         }
+
+        
     }
 
     //to rotate mirror
     public void RotateMirror()
     {
-        float clampedrot = rotangle + Input.GetAxis("Horizontal") * _RotSpeed * Time.deltaTime;
+        float clampedrot = rotangle + PoolManager._instance._JoyStick.input.x * _RotSpeed * Time.deltaTime;
         rotangle = Mathf.Clamp(clampedrot, -30f, 30f);
         transform.localRotation = Quaternion.Euler(new Vector3(0, clampedrot, -4.221f));
     }
@@ -44,33 +45,10 @@ public class Mirror : MonoBehaviour,IIUnityItem
         if (go == this.gameObject)
         {
             this.gameObject.SetActive(true);
-
+            PoolManager._instance._JoyStick.gameObject.SetActive(true);
             this.gameObject.transform.position = p;
             UnitsManager.Instance.DropUnit(EventActions._SelectedUnitType);
         }
     }
 }
 
-[Serializable]
-public enum MirrorVariation
-{
-    low,
-    medium,
-    none
-}
-
-//public class MirrorData
-//{
-//    public string _MirrorType;
-
-//    public int _MirrorCount;
-
-//    public int _TypeId;
-
-//    public MirrorData(string type,int count,int typeid)
-//    {
-//        _MirrorType = type;
-//        _MirrorCount = count;
-//        _TypeId = typeid;
-//    }
-//}

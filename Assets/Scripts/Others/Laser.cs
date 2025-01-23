@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser 
+public class Laser
 {
     public LineRenderer m_Beam;
 
@@ -15,8 +15,8 @@ public class Laser
     public bool _Raycasted = false;
 
     private InputManager m_InputManager;
-    
-    public Laser(Vector3 starpos,Vector3 rotation,Material Raymaterial,InputManager InputManager)
+
+    public Laser(Vector3 starpos, Vector3 rotation, Material Raymaterial, InputManager InputManager)
     {
         m_Beam = new LineRenderer();
         m_BeamObject = new GameObject();
@@ -27,7 +27,7 @@ public class Laser
         m_Beam.endColor = Color.white;
         m_Beam.startWidth = 1f;
         m_Beam.endWidth = 0.02f;
-        
+
         this.pos = starpos;
         this.dir = rotation;
         m_Beam.material = Raymaterial;
@@ -40,6 +40,11 @@ public class Laser
     {
         m_BeamIndices.Clear();
         CastBeam(startPos, direction, m_Beam);
+    }
+
+    public void HideLaser(bool show)
+    {
+        m_BeamObject?.SetActive(show);
     }
 
     public void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam)
@@ -79,11 +84,11 @@ public class Laser
             this.m_InputManager.isRaycasted = true;
             Vector3 dir = Vector3.Reflect(direction, hitinfo.normal);
             CastBeam(hitinfo.point, dir, laser);
-        }else if(hitinfo.collider.gameObject.tag == "enemy")
+        }else if(hitinfo.collider.GetComponent<Troop>())
         {
             m_BeamIndices.Add(hitinfo.point);
             UpdateIndices();
-           // hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
+            hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
         }
         else
         {

@@ -22,7 +22,7 @@ public class HelathBar : MonoBehaviour
 
     public void UpdateHealth(float health)
     {
-        print(health);
+        print("health: "+health);
         m_HealthBar.fillAmount = health;
     }
 

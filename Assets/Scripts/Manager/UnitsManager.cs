@@ -15,6 +15,7 @@ public class UnitsManager : MonoBehaviour
     public Dictionary<UnitItem, int> _UnitItemsList = new Dictionary<UnitItem, int>();
     public List<GameObject> _MirrorPlacableTiles = new List<GameObject>();
     public List<UnitDetails> _UnitItemsTempList = new List<UnitDetails>(); // which controls the count of units in both main and selected units
+    
 
     [SerializeField] private TextMeshProUGUI m_Totalslot;
     [SerializeField] private TextMeshProUGUI m_slot;

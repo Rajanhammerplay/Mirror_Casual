@@ -25,7 +25,7 @@ public class Troop : MonoBehaviour, IIUnityItem
         m_TroopHealth = m_TroopCard._UnitData._Health;
         m_PathTileMap = GameObject.Find("Pathparent")?.GetComponent<Tilemap>();
         SetPath();
-        this.transform.position = new Vector3(m_PathTilePosition[0].x, 1.708048f, m_PathTilePosition[0].z);
+        this.transform.position = new Vector3(m_PathTilePosition[0].x, 2.08048f, m_PathTilePosition[0].z);
         m_PlayerYPos = this.transform.position.y;
     }
 
@@ -37,13 +37,14 @@ public class Troop : MonoBehaviour, IIUnityItem
 
     public void KillTroop()
     {
+
         if(m_TroopHealth > 0f)
         {
-            m_TroopHealth -= 0.6f;
+            m_TroopHealth -= 1.2f * Time.deltaTime;
             m_HealthBar.UpdateHealth((m_TroopHealth/m_TroopCard._UnitData._Health));
             return;
         }
-        Destroy(this.gameObject);
+        ResetTroop();
     }
 
     public void SetPath()
@@ -102,7 +103,7 @@ public class Troop : MonoBehaviour, IIUnityItem
         }
         if (i == m_PathTilePosition.Count)
         {
-            ResetTroop();
+            //ResetTroop();
         }
     }
 
