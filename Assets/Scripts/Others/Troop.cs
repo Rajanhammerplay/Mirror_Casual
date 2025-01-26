@@ -23,7 +23,7 @@ public class Troop : MonoBehaviour, IIUnityItem
     public void SetupTroop()
     {
         m_TroopHealth = m_TroopCard._UnitData._Health;
-        m_PathTileMap = GameObject.Find("Pathparent")?.GetComponent<Tilemap>();
+        m_PathTileMap = PoolManager._instance._Pathparent?.GetComponent<Tilemap>();
         SetPath();
         this.transform.position = new Vector3(m_PathTilePosition[0].x, 2.08048f, m_PathTilePosition[0].z);
         m_PlayerYPos = this.transform.position.y;
@@ -41,7 +41,11 @@ public class Troop : MonoBehaviour, IIUnityItem
         if(m_TroopHealth > 0f)
         {
             m_TroopHealth -= 1.2f * Time.deltaTime;
-            m_HealthBar.UpdateHealth((m_TroopHealth/m_TroopCard._UnitData._Health));
+            if (m_HealthBar)
+            {
+                m_HealthBar.UpdateHealth((m_TroopHealth / m_TroopCard._UnitData._Health));
+            }
+            
             return;
         }
         ResetTroop();
@@ -88,8 +92,11 @@ public class Troop : MonoBehaviour, IIUnityItem
                 );
                 targetpos += offset;
 
-                targetRotation = Quaternion.LookRotation(m_PathTiles[i].transform.forward, Vector3.up);
-                transform.rotation = targetRotation;
+                print("bb" + i + "target pos: " + m_PathTiles[i] + " " + targetpos);
+
+
+                // targetRotation = Quaternion.LookRotation(m_PathTiles[i].transform.forward, Vector3.up);
+                // transform.rotation = targetRotation;
             }
             float movementprogress = 0f;
             while (movementprogress < m_TroopSpeed)
@@ -119,7 +126,7 @@ public class Troop : MonoBehaviour, IIUnityItem
         PoolManager._instance._UnitPoolDict[m_TroopCard._UnitData.Type].Enqueue(this.gameObject);
     }
 
-    public void DropItem(GameObject troop, Vector3 p)
+    public void DropItem(GameObject troop, Vector3 p, GameObject lookatobj)
     {
         if (troop == this.gameObject)
         {

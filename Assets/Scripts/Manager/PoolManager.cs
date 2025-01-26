@@ -9,11 +9,11 @@ public class PoolManager : MonoBehaviour
     public static PoolManager _instance;
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDict = new Dictionary<TroopType, Queue<GameObject>>();
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDictCpy = new Dictionary<TroopType, Queue<GameObject>>();
-    public VariableJoystick _JoyStick;
+    public GameObject _Pathparent;
 
     private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
 
-    [SerializeField] private Camera m_UICamera;
+    public Camera m_UICamera;
 
     void Start()
     {
@@ -21,15 +21,11 @@ public class PoolManager : MonoBehaviour
         m_ListOfUnitPool = lvlunitpool._ListOfUnitPool;
         IntializePool();
         _instance = this;
-        _JoyStick.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        //if(EventActions._SelectedUnitType != TroopType.Mirror)
-        //{
-        //    _JoyStick.gameObject.SetActive(false);
-        //}
+
     }
 
     public void IntializePool()
@@ -46,11 +42,11 @@ public class PoolManager : MonoBehaviour
                 unitobject.name = m_ListOfUnitPool[i].Type +"_"+j.ToString();
                 unitobject.transform.parent = transform;
                 unitobject.gameObject.SetActive(false);
-                //if(unitobject.GetComponent<Troop>()?.m_HealthBarCanvas != null)
-                //{
-                //    unitobject.GetComponent<Troop>().m_HealthBarCanvas.worldCamera = Camera.main;
-                //}
-                
+                if (unitobject.GetComponent<Troop>()?.m_HealthBarCanvas != null)
+                {
+                    unitobject.GetComponent<Troop>().m_HealthBarCanvas.worldCamera = m_UICamera;
+                }
+
                 queue.Enqueue(unitobject);
                 queuecpy.Enqueue(unitobject);
             }
@@ -91,22 +87,28 @@ public class PoolManager : MonoBehaviour
             print(gameObject + "==" + target);
             if (gameObject == target)
             {
+                if(gameObject.GetComponent<Mirror>()._IsSelected)
+                {
+                    return;
+                }
                 gameObject.GetComponent<Mirror>()._IsSelected = true;
+                gameObject.GetComponent<Mirror>().ScaleLever(true);
             }
             else
             {
                 gameObject.GetComponent<Mirror>()._IsSelected = false;
+                gameObject.GetComponent<Mirror>().ScaleLever(false);
             }
         }
     }
 
 
-    public void DropTroop(Vector3 pos)
+    public void DropTroop(Vector3 pos,GameObject lookatobj)
     {
         GameObject unitfrompool = GetSpawnableObject(EventActions._SelectedUnitType);
         if (unitfrompool != null)
         {
-            unitfrompool.GetComponent<IIUnityItem>().DropItem(unitfrompool,pos);
+            unitfrompool.GetComponent<IIUnityItem>().DropItem(unitfrompool,pos,lookatobj);
         }
             
     }

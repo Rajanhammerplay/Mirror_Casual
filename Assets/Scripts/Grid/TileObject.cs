@@ -13,7 +13,7 @@ public class TileObject : MonoBehaviour
 
     public Vector2 EdgeBounds;
     public Tile3d tile;
-
+    public GameObject _LookatObject;
     private void Start()
     {
         m_Tilemap = this.GetComponentInParent<Tilemap>();
@@ -43,12 +43,15 @@ public class TileObject : MonoBehaviour
         if (m_Tilemap != null)
         {
             tilepos = m_Tilemap.WorldToCell(this.gameObject.transform.position);
+            
             this.tile.GetTileData(tilepos, m_Tilemap, ref tileData);
+            
             tileInfo.TileData = tileData;
         }
 
         tileInfo.tilepos = tilepos;
         tileInfo.tileworldpos = this.transform.position;
+        tileInfo.tilerot = this.transform.localEulerAngles;
         return tileInfo;
     }
 
@@ -74,4 +77,5 @@ public class TileInfo
     public TileData TileData;
     public Vector3Int tilepos;
     public Vector3 tileworldpos;
+    public Vector3 tilerot;
 }

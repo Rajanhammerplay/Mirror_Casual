@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ListOfUnitPool:
   - Type: 0
-    Prefab: {fileID: 6588112144907391316, guid: 0cf36e9e047581642a811ebbce1e7931, type: 3}
+    Prefab: {fileID: 7255289047345274986, guid: 7e3bfb924cd0c7540b94d731cb734690, type: 3}
     PoolSize: 7
   - Type: 1
     Prefab: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}

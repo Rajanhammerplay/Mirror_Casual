@@ -7,19 +7,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mud_with_grass
-  m_Shader: {fileID: 4800000, guid: 2bc0e65aa8d312b4d8e7ba08ee3dfb5a, type: 3}
+  m_Name: Base
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: _BlendStrength _Noisetex
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -43,20 +43,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Grasstex:
-        m_Texture: {fileID: 2800000, guid: 253a8e27d6b36684f87420a74eee95e8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6d287653541148348a5fef1fb946dd66, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Noisetex:
-        m_Texture: {fileID: 2800000, guid: 20d77ccb71cf82c4abf2d21947976eda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -69,36 +61,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - NOISETEX: 0
-    - _BlendStrength: 0.01
-    - _BlendStrength_1: 0.58
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeImapct: -5.71
-    - _EdgeImapctMax: 0.4
-    - _EdgeImapctMin: 0.42
-    - _EdgeIntense: 0.44
-    - _FresnelImapct: 0
-    - _FresnelIntense: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0.762
     - _GlossyReflections: 1
-    - _Metallic: 0
+    - _Metallic: 0.477
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Rotationangle: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.6698113, b: 0.6698113, a: 1}
-    - _Color_1: {r: 1.6196381, g: 0.22047424, b: 1.2640301, a: 1}
-    - _EdgeDirection: {r: 0.5, g: 0.5, b: 0, a: 3.43}
+    - _Color: {r: 0.96981126, g: 0.5471199, b: 0.5471199, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

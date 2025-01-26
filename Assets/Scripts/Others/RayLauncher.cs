@@ -33,6 +33,10 @@ public class RayLauncher : MonoBehaviour
 
         foreach (Collider collider2 in collider)
         {
+            if(collider2.transform.GetComponent<TileObject>() != null)
+            {
+                collider2.transform.GetComponent<TileObject>()._LookatObject = this.gameObject;
+            }
             UnitsManager.Instance._MirrorPlacableTiles.Add(collider2.gameObject);
         }
 

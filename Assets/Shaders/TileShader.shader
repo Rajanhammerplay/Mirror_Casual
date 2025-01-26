@@ -90,8 +90,7 @@ Shader "Unlit/TileShader"
                 #ifdef NOISETEX_ON
                     i.uv1_uv2.xy -= float2(0.5,0.5);
                     float leng = max(abs(i.uv1_uv2.x), abs(i.uv1_uv2.y));
-                    float edge = sin(_Time.x * 2.0 * 3.14159) * (_EdgeImapctMax - _EdgeImapctMin) * 0.5 + (_EdgeImapctMin + _EdgeImapctMax) * 0.5;
-                    float edgefact = smoothstep(_BlendStrength_1+_EdgeImapctMax,_BlendStrength_1-_EdgeImapctMax,leng);
+                    float edgefact = smoothstep(_BlendStrength_1 + _EdgeImapctMax,_BlendStrength_1 - _EdgeImapctMax,leng);
                     mixed = lerp(_Color_1,main,edgefact);
                 #endif
 

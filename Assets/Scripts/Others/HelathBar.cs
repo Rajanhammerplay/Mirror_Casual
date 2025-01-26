@@ -17,7 +17,7 @@ public class HelathBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.transform.rotation = Quaternion.LookRotation(this.transform.position - PoolManager._instance.m_UICamera.transform.position);
     }
 
     public void UpdateHealth(float health)

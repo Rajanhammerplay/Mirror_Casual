@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         HandleInputs();
     }
 
@@ -42,6 +43,7 @@ public class InputManager : MonoBehaviour
                 return;
             }
 
+
             Vector3 pos = Vector3.zero;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out RaycastHit hit);
@@ -50,7 +52,7 @@ public class InputManager : MonoBehaviour
                 PoolManager._instance.UpdateMirrorStatus(hit.collider.gameObject);
             }
 
-            if(EventActions._SelectedUnitType != TroopType.none)
+            if (EventActions._SelectedUnitType != TroopType.none)
             {
                 if (EventActions._SelectedUnitType == TroopType.Mirror)
                 {
@@ -58,11 +60,11 @@ public class InputManager : MonoBehaviour
                     if (hit.collider.transform.GetComponent<TileObject>())
                     {
                         Vector3 tilepos = hit.collider.transform.GetComponent<TileObject>().GetTileData().tileworldpos;
+                        GameObject tilerot = hit.collider.gameObject;
                         if (UnitsManager.Instance.IsMirrorPlacable(hit.collider.gameObject) && UnitsManager.Instance.IsMirrorDetected(tilepos))
                         {
                             pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
-                            m_PoolManager.DropTroop(pos);
-                            print("current type:" + EventActions._SelectedUnitType + "  " + hit.collider.transform.GetComponent<TileObject>().GetTileData().tileworldpos);
+                            m_PoolManager.DropTroop(pos,tilerot);
                         }
                     }
                 }
@@ -72,10 +74,10 @@ public class InputManager : MonoBehaviour
                     {
                         return;
                     }
-                    m_PoolManager.DropTroop(pos);
+                    m_PoolManager.DropTroop(pos,this.gameObject);
                 }
             }
-            
+
         }
     }
 
@@ -116,8 +118,9 @@ public class InputManager : MonoBehaviour
         {
             m_TroopSelectionUI.gameObject.transform.DOScale(Vector3.zero, 0.1f);
         }
-        
+
     }
 }
+
 
 

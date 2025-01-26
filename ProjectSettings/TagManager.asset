@@ -16,8 +16,8 @@ TagManager:
   - UI
   - Troop
   - Ray
-  - 
-  - 
+  - Mirror_Parts
+  - Mirror
   - 
   - 
   - 
@@ -52,4 +52,10 @@ TagManager:
     locked: 0
   - name: Ray
     uniqueID: 1418454299
+    locked: 0
+  - name: Mirror_Parts
+    uniqueID: 2731546697
+    locked: 0
+  - name: Mirror
+    uniqueID: 2814954205
     locked: 0

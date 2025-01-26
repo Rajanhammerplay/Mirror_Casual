@@ -23,7 +23,7 @@ public class LaserGenerator : MonoBehaviour
         if (_CanCastLaser || _CurrentTarget != null)
         {
             m_laser.HideLaser(true);
-            m_laser.UpdateLaser(gameObject.transform.position, (_CurrentTarget.transform.position - gameObject.transform.position).normalized); 
+            m_laser.UpdateLaser(gameObject.transform.position, (_CurrentTarget.transform.position - gameObject.transform.position).normalized);
         }
         else
         {

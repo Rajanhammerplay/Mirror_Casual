@@ -30,6 +30,10 @@ public class VariableJoystick : Joystick
         fixedPosition = background.anchoredPosition;
         SetMode(joystickType);
     }
+    private void Update()
+    {
+        //this.transform.LookAt(PoolManager._instance.m_UICamera.transform);
+    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {

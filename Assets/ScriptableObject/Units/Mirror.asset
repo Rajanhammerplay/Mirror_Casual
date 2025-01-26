@@ -21,4 +21,6 @@ MonoBehaviour:
     SlotCost: 2
     Image: {fileID: -1438975050, guid: 2927f4ebdbc2e47489e0b0ecfc78212a, type: 3}
     _Health: 0
-    _Prefab: {fileID: 6588112144907391316, guid: 0cf36e9e047581642a811ebbce1e7931, type: 3}
+    _Prefab: {fileID: 7255289047345274986, guid: 7e3bfb924cd0c7540b94d731cb734690, type: 3}
+    _InstanceIndex: 0
+    _Count: 0

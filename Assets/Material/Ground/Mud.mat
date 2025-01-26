@@ -31,8 +31,9 @@ Material:
     m_Floats:
     - NOISETEX: 0
     - _BlendStrength: 0
-    - _BlendStrength_1: 0.7
-    - _EdgeImapctMax: 0.4
+    - _BlendStrength_1: 0.75
+    - _EdgeImapctMax: 0.66
+    - _EdgeImapctMin: 0.18
     - _FresnelImapct: 0
     - _FresnelIntense: 9.1
     m_Colors:

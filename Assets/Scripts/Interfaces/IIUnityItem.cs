@@ -6,7 +6,7 @@ using System;
 
 public interface IIUnityItem 
 {
-    public void DropItem(GameObject go,Vector3 pos);
+    public void DropItem(GameObject go,Vector3 pos,GameObject looatobj);
 }
 
 public class InventoryArgs : EventArgs

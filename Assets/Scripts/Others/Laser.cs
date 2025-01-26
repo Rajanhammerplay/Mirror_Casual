@@ -50,7 +50,7 @@ public class Laser
     public void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam)
     {
         m_BeamIndices.Add(start);
-        LayerMask excludeRays = LayerMask.GetMask("Ray");
+        int excludeRays = (1 << 7);
         Ray ray = new Ray(start, dir);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,30,~excludeRays))
@@ -82,9 +82,11 @@ public class Laser
         if(hitinfo.collider.gameObject.tag == "mirror")
         {
             this.m_InputManager.isRaycasted = true;
-            Vector3 dir = Vector3.Reflect(direction, hitinfo.normal);
-            CastBeam(hitinfo.point, dir, laser);
-        }else if(hitinfo.collider.GetComponent<Troop>())
+            Transform hitpoint = hitinfo.collider.gameObject.GetComponent<Mirror>()._Mirror.transform;
+            Vector3 dir = Vector3.Reflect(direction, hitpoint.right);
+            CastBeam(hitpoint.position, dir, laser);
+        }
+        else if(hitinfo.collider.GetComponent<Troop>())
         {
             m_BeamIndices.Add(hitinfo.point);
             UpdateIndices();
