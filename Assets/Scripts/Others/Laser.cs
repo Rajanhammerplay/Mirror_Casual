@@ -5,15 +5,13 @@ using UnityEngine;
 public class Laser
 {
     public LineRenderer m_Beam;
+    public bool _Raycasted = false;
+    public bool _MirrorDeteced = false;
+    public GameObject _CurrentTarget;
 
     private GameObject m_BeamObject;
-
     List<Vector3> m_BeamIndices = new List<Vector3>();
-
     Vector3 pos, dir;
-
-    public bool _Raycasted = false;
-
     private InputManager m_InputManager;
 
     public Laser(Vector3 starpos, Vector3 rotation, Material Raymaterial, InputManager InputManager)
@@ -81,7 +79,8 @@ public class Laser
     {
         if(hitinfo.collider.gameObject.tag == "mirror")
         {
-            this.m_InputManager.isRaycasted = true;
+            _CurrentTarget = hitinfo.collider.gameObject;
+            _MirrorDeteced = true;
             Transform hitpoint = hitinfo.collider.gameObject.GetComponent<Mirror>()._Mirror.transform;
             Vector3 dir = Vector3.Reflect(direction, hitpoint.right);
             CastBeam(hitpoint.position, dir, laser);
@@ -90,6 +89,7 @@ public class Laser
         {
             m_BeamIndices.Add(hitinfo.point);
             UpdateIndices();
+            Debug.Log("killing tropp: " + hitinfo.collider.gameObject.GetComponent<Troop>());
             hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
         }
         else

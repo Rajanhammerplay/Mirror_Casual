@@ -13,6 +13,7 @@ public class Troop : MonoBehaviour, IIUnityItem
 
     private float m_PlayerYPos;
     public float m_TroopHealth;
+    public float m_healthlose;
     public Canvas m_HealthBarCanvas;
 
     [Header("Movement Props")]
@@ -40,7 +41,7 @@ public class Troop : MonoBehaviour, IIUnityItem
 
         if(m_TroopHealth > 0f)
         {
-            m_TroopHealth -= 1.2f * Time.deltaTime;
+            m_TroopHealth -= m_healthlose * Time.deltaTime;
             if (m_HealthBar)
             {
                 m_HealthBar.UpdateHealth((m_TroopHealth / m_TroopCard._UnitData._Health));
@@ -92,25 +93,18 @@ public class Troop : MonoBehaviour, IIUnityItem
                 );
                 targetpos += offset;
 
-                print("bb" + i + "target pos: " + m_PathTiles[i] + " " + targetpos);
-
-
                 // targetRotation = Quaternion.LookRotation(m_PathTiles[i].transform.forward, Vector3.up);
                 // transform.rotation = targetRotation;
             }
             float movementprogress = 0f;
-            while (movementprogress < m_TroopSpeed)
+            while (Vector3.Distance(transform.position, targetpos) > 0.01f)
             {
                 movementprogress += Time.deltaTime * m_TroopSpeed;
-                transform.position = Vector3.Lerp(Troopos, targetpos, movementprogress);
+                transform.position = Vector3.Lerp(Troopos, targetpos, Mathf.Clamp01(movementprogress));
                 yield return new WaitForEndOfFrame();
             }
             i++;
 
-        }
-        if (i == m_PathTilePosition.Count)
-        {
-            //ResetTroop();
         }
     }
 
@@ -122,6 +116,8 @@ public class Troop : MonoBehaviour, IIUnityItem
         transform.gameObject.SetActive(false);
         transform.rotation = targetRotation;
         transform.position = targetpos;
+        m_TroopHealth = m_TroopCard._UnitData._Health;
+        m_HealthBar.ResetHealthBar();
         this.ClearPath();
         PoolManager._instance._UnitPoolDict[m_TroopCard._UnitData.Type].Enqueue(this.gameObject);
     }

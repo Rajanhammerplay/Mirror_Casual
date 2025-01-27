@@ -7,11 +7,12 @@ public class HelathBar : MonoBehaviour
 {
     [SerializeField] private Image m_HealthBar;
 
-
+    private float initialfillamount = 0;
     // Start is called before the first frame update
     void Start()
     {
         //m_HealthBar.fillAmount = m_Maxhealth;
+        initialfillamount = m_HealthBar.fillAmount;
     }
 
     // Update is called once per frame
@@ -22,8 +23,12 @@ public class HelathBar : MonoBehaviour
 
     public void UpdateHealth(float health)
     {
-        print("health: "+health);
         m_HealthBar.fillAmount = health;
+    }
+
+    public void ResetHealthBar()
+    {
+        m_HealthBar.fillAmount = initialfillamount;
     }
 
 }

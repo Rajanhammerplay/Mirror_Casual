@@ -7,7 +7,7 @@ public class RayLauncher : MonoBehaviour
     [SerializeField] float m_DetectionDistance;
     [SerializeField] Vector3 m_DetectionBoxSize;
     [SerializeField] Vector3 m_OriginOffset;
-    [SerializeField] Vector3 m_OriginOffset_1;
+    [SerializeField] Vector3 m_EnemyDetectionOffset;
     [SerializeField] float m_EnemyDetectionRadius;
     [SerializeField] private Transform m_LaserHead;
     [SerializeField] private LaserGenerator m_LaserGenerator;
@@ -27,7 +27,7 @@ public class RayLauncher : MonoBehaviour
         Vector3 direction = transform.forward;
 
         Vector3 BoxCenter = (transform.position + m_OriginOffset) + (direction * m_DetectionDistance / 2);
-        Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionDistance);
+        Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionBoxSize.z);
 
         Collider[] collider = Physics.OverlapBox(BoxCenter,BoxSize/2,transform.rotation);
 
@@ -46,37 +46,41 @@ public class RayLauncher : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Vector3 BoxCenter = (transform.position + m_OriginOffset) + (transform.forward * m_DetectionDistance / 2);
-        Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionDistance);
+        Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionBoxSize.z);
         Gizmos.DrawCube(BoxCenter,BoxSize);
         //Gizmos.color = Color.white;
-        //Gizmos.DrawSphere(this.transform.position + m_OriginOffset_1, m_EnemyDetectionRadius);
+        //Gizmos.DrawSphere(this.transform.position + m_EnemyDetectionOffset, m_EnemyDetectionRadius);
     }
 
     
     private void FindTarget()
     {
-        
-        if(currentTarget != null && IsTargetInRange() == false)
+        if (m_LaserGenerator._laser._MirrorDeteced == true)
+        {
+            return;
+        }
+        if (currentTarget != null && IsTargetInRange() == false)
         {
             ResetLauncher();
         }
 
-        if (currentTarget == null) 
-        { 
+        if (currentTarget == null)
+        {
             FindNewTarget();
         }
 
-        if(currentTarget != null)
+        if (currentTarget != null)
         {
             ShootTarget();
         }
+
     }
 
     //method to find new target
     private void FindNewTarget()
     {
         
-        Collider[] TargetsInRange = Physics.OverlapSphere(this.transform.position + m_OriginOffset_1, m_EnemyDetectionRadius);
+        Collider[] TargetsInRange = Physics.OverlapSphere(this.transform.position + m_EnemyDetectionOffset, m_EnemyDetectionRadius);
         foreach (Collider Target in TargetsInRange)
         {
             if (Target.GetComponent<Troop>() != null)
@@ -84,7 +88,7 @@ public class RayLauncher : MonoBehaviour
                 if (currentTarget == null)
                 {
                     currentTarget = Target.GetComponent<Troop>();
-                    m_LaserGenerator._CurrentTarget = currentTarget.gameObject;
+                    m_LaserGenerator._laser._CurrentTarget = currentTarget.gameObject;
                     m_LaserGenerator._CanCastLaser = true;
                     //print("Target in distance: " + Vector3.Distance(this.transform.position + m_OriginOffset_1, currentTarget.transform.position) + "<" + m_EnemyDetectionRadius);
                     break;
@@ -105,7 +109,7 @@ public class RayLauncher : MonoBehaviour
     private void ResetLauncher()
     {
         currentTarget = null;
-        m_LaserGenerator._CurrentTarget = null;
+        m_LaserGenerator._laser._CurrentTarget = null;
         m_LaserGenerator._CanCastLaser = false;
        // m_LaserHead.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
@@ -115,7 +119,7 @@ public class RayLauncher : MonoBehaviour
     {
         if(currentTarget != null)
         {
-            if (Vector3.Distance(this.transform.position + m_OriginOffset_1, currentTarget.transform.position) < m_EnemyDetectionRadius)
+            if (Vector3.Distance(this.transform.position + m_EnemyDetectionOffset, currentTarget.transform.position) < m_EnemyDetectionRadius)
             {
                 return true;
             }

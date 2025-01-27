@@ -104,7 +104,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -120,5 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c20d9392146aa4bab632452d3c2cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: d2acf5faded6d5d46944fedf09c5fd65, type: 2}
   EdgeBounds: {x: 0.4, y: 0.6}
+  tile: {fileID: 11400000, guid: d2acf5faded6d5d46944fedf09c5fd65, type: 2}
+  _LookatObject: {fileID: 0}
