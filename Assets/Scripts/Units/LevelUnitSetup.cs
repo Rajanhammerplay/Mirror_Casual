@@ -9,10 +9,10 @@ using UnityEngine.UI;
 //responsible for setup units UI Items ad hadling drop and select
 public class LevelUnitSetup : MonoBehaviour
 {
-    [SerializeField] LevelTroops m_LevelUnits;
-    [SerializeField] GameObject m_TroopUIPrefab;
-    [SerializeField] Vector3 m_UIScale;
-    int instindex = 0;
+    [SerializeField] private LevelTroops m_LevelUnits;
+    [SerializeField] private GameObject m_TroopUIPrefab;
+    [SerializeField] private Vector3 m_UIScale;
+    private int instindex = 0;
 
     public bool _CanDroopCount;
     public bool _CanAddCount;

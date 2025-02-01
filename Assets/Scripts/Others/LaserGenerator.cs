@@ -5,13 +5,9 @@ using UnityEngine;
 public class LaserGenerator : MonoBehaviour
 {
     public Laser _laser;
-
     public Material m_BeamMaterial;
-
     public InputManager _InputManager;
-
     public bool _CanCastLaser;
-
 
     private void Start()
     {
@@ -20,7 +16,10 @@ public class LaserGenerator : MonoBehaviour
 
     private void Update()
     {
-
+        HandleLaser();
+    }
+    private void HandleLaser()
+    {
         if (_CanCastLaser || _laser._CurrentTarget != null)
         {
             _laser.HideLaser(true);
@@ -32,8 +31,14 @@ public class LaserGenerator : MonoBehaviour
         }
     }
 
-    public void CastLaser()
+    private void OnDisable()
     {
-        
+        //if (_laser != null)
+        //{
+        //    _laser.HideLaser(false);
+        //}
     }
+
 }
+
+

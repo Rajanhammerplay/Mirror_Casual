@@ -18,4 +18,7 @@ public class EventActions
     /*units shop actions*/
     public static Action<int,int> _AddTroop;
     public static Action<int, int> _DropTroop;
+
+    /*Healer actions*/
+    public static Action<Vector3> _UpdateHealerPos;
 }

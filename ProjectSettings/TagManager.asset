@@ -18,7 +18,7 @@ TagManager:
   - Ray
   - Mirror_Parts
   - Mirror
-  - 
+  - Path
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1873317857
+    locked: 0
+  - name: Path
+    uniqueID: 2305968149
     locked: 0
   - name: Ground
     uniqueID: 1469146131

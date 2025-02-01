@@ -6,29 +6,38 @@ using UnityEngine.UI;
 public class HelathBar : MonoBehaviour
 {
     [SerializeField] private Image m_HealthBar;
+    [SerializeField] private Gradient healthGradient;
 
     private float initialfillamount = 0;
-    // Start is called before the first frame update
+    private Transform m_CurrentTransform;
     void Start()
     {
-        //m_HealthBar.fillAmount = m_Maxhealth;
+        m_CurrentTransform = transform;
         initialfillamount = m_HealthBar.fillAmount;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        this.transform.rotation = Quaternion.LookRotation(this.transform.position - PoolManager._instance.m_UICamera.transform.position);
+        UpdateHealthBar();
     }
-
+    private void UpdateHealthBar()
+    {
+        m_CurrentTransform.rotation = Quaternion.LookRotation(m_CurrentTransform.position - PoolManager._instance.m_UICamera.transform.position);
+    }
     public void UpdateHealth(float health)
     {
         m_HealthBar.fillAmount = health;
+        UpdateHealthBarColor(health);
     }
 
     public void ResetHealthBar()
     {
         m_HealthBar.fillAmount = initialfillamount;
+    }
+
+    private void UpdateHealthBarColor(float health)
+    {
+        m_HealthBar.color = healthGradient.Evaluate(health);
     }
 
 }

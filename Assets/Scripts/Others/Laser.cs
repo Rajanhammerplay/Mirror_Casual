@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Laser
@@ -37,7 +38,7 @@ public class Laser
     public void UpdateLaser(Vector3 startPos, Vector3 direction)
     {
         m_BeamIndices.Clear();
-        CastBeam(startPos, direction, m_Beam);
+        CastBeam(startPos, direction, m_Beam,"normal");
     }
 
     public void HideLaser(bool show)
@@ -45,14 +46,40 @@ public class Laser
         m_BeamObject?.SetActive(show);
     }
 
-    public void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam)
+    public void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam,string castwhile)
     {
         m_BeamIndices.Add(start);
-        int excludeRays = (1 << 7);
-        Ray ray = new Ray(start, dir);
+        int excludeRays = castwhile == "normal" ? (1 << 7) : (1 << 7 | 1 << 3);
+        Ray ray = castwhile == "normal" ? new Ray(start, dir) : new Ray(start, dir + new Vector3(0f, 0.08f, 0f));
+        int maxdist = castwhile == "normal" ? 30 : 285;
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit,30,~excludeRays))
+        if (Physics.Raycast(ray, out hit,maxdist,~excludeRays))
         {
+            if(castwhile != "normal")
+            {
+                TileObject tileObject = hit.collider.GetComponent<TileObject>();
+                if (tileObject == null) 
+                {
+                    return;
+                }
+                if (tileObject._Tiletype == TileTypes.path) 
+                {
+                    EventActions._UpdateHealerPos?.Invoke(hit.point);
+                }
+                
+            }
+            
+            //Collider[] tiles = Physics.OverlapSphere(hit.collider.transform.position, 20f);
+            //foreach (Collider col in tiles) 
+            //{ 
+            //    TileObject to = col.GetComponent<TileObject>();
+            //    if (to != null) 
+            //    { 
+            //        if(to._Tiletype == TileTypes.path)
+            //        {
+            //        }
+            //    }
+            //}
             ReflectMirror(hit,dir,beam);
         }
         else
@@ -83,13 +110,12 @@ public class Laser
             _MirrorDeteced = true;
             Transform hitpoint = hitinfo.collider.gameObject.GetComponent<Mirror>()._Mirror.transform;
             Vector3 dir = Vector3.Reflect(direction, hitpoint.right);
-            CastBeam(hitpoint.position, dir, laser);
+            CastBeam(hitpoint.position, dir, laser,"reflect");
         }
         else if(hitinfo.collider.GetComponent<Troop>())
         {
             m_BeamIndices.Add(hitinfo.point);
             UpdateIndices();
-            Debug.Log("killing tropp: " + hitinfo.collider.gameObject.GetComponent<Troop>());
             hitinfo.collider.gameObject.GetComponent<Troop>().KillTroop();
         }
         else

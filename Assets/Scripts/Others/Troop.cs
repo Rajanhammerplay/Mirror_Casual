@@ -10,24 +10,35 @@ public class Troop : MonoBehaviour, IIUnityItem
     [SerializeField] HelathBar m_HealthBar;
     [SerializeField] float m_TroopSpeed;
     
-
-    private float m_PlayerYPos;
     public float m_TroopHealth;
     public float m_healthlose;
     public Canvas m_HealthBarCanvas;
 
     [Header("Movement Props")]
-    Tilemap m_PathTileMap;
+
+    private Tilemap m_PathTileMap;
     private List<GameObject> m_PathTiles = new List<GameObject>();
     private List<Vector3> m_PathTilePosition = new List<Vector3>();
+    private Collider[] m_NearbyColliders = new Collider[100];
+    private float m_PlayerYPos;
+    private Troop m_CurrentIntance;
+    private GameObject m_CurrentObject;
+
+    private void Awake()
+    {
+        m_CurrentIntance = this.GetComponent<Troop>();
+        m_CurrentObject = this.gameObject;
+    }
 
     public void SetupTroop()
     {
         m_TroopHealth = m_TroopCard._UnitData._Health;
         m_PathTileMap = PoolManager._instance._Pathparent?.GetComponent<Tilemap>();
+
         SetPath();
-        this.transform.position = new Vector3(m_PathTilePosition[0].x, 2.08048f, m_PathTilePosition[0].z);
-        m_PlayerYPos = this.transform.position.y;
+
+        m_CurrentObject.transform.position = new Vector3(m_PathTilePosition[0].x, 2.08048f, m_PathTilePosition[0].z);
+        m_PlayerYPos = m_CurrentObject.transform.position.y;
     }
 
     // to move troop once dropped
@@ -46,7 +57,6 @@ public class Troop : MonoBehaviour, IIUnityItem
             {
                 m_HealthBar.UpdateHealth((m_TroopHealth / m_TroopCard._UnitData._Health));
             }
-            
             return;
         }
         ResetTroop();
@@ -54,7 +64,6 @@ public class Troop : MonoBehaviour, IIUnityItem
 
     public void SetPath()
     {
-
         foreach (Transform tiletransform in m_PathTileMap.transform)
         {
             TileObject tileobject = tiletransform.GetComponent<TileObject>();
@@ -78,10 +87,10 @@ public class Troop : MonoBehaviour, IIUnityItem
             Vector3 targetpos = new Vector3(tiletransformpos.x, m_PlayerYPos, tiletransformpos.z);
 
             Quaternion targetRotation = Quaternion.LookRotation( m_PathTiles[i].transform.forward, Vector3.up);
-            transform.rotation = targetRotation;
+            m_CurrentObject.transform.rotation = targetRotation;
 
-            Collider[] nearbyColliders = Physics.OverlapSphere(Troopos, 1f);
-            if (nearbyColliders.Length > 0)
+            m_NearbyColliders = Physics.OverlapSphere(Troopos, 1f);
+            if (m_NearbyColliders.Length > 0)
             {
                 // Add a random offset to avoid overlapping
                 float randomAngle = Random.Range(0f, 360f);
@@ -92,15 +101,13 @@ public class Troop : MonoBehaviour, IIUnityItem
                     Mathf.Sin(randomAngle * Mathf.Deg2Rad) * offsetDistance
                 );
                 targetpos += offset;
-
-                // targetRotation = Quaternion.LookRotation(m_PathTiles[i].transform.forward, Vector3.up);
-                // transform.rotation = targetRotation;
             }
+
             float movementprogress = 0f;
-            while (Vector3.Distance(transform.position, targetpos) > 0.01f)
+            while (Vector3.Distance(m_CurrentObject.transform.position, targetpos) > 0.01f)
             {
                 movementprogress += Time.deltaTime * m_TroopSpeed;
-                transform.position = Vector3.Lerp(Troopos, targetpos, Mathf.Clamp01(movementprogress));
+                m_CurrentObject.transform.position = Vector3.Lerp(Troopos, targetpos, Mathf.Clamp01(movementprogress));
                 yield return new WaitForEndOfFrame();
             }
             i++;
@@ -113,24 +120,24 @@ public class Troop : MonoBehaviour, IIUnityItem
         Vector3 targetpos = new Vector3(m_PathTilePosition[0].x, m_PlayerYPos, m_PathTilePosition[0].z);
 
         Quaternion targetRotation = Quaternion.LookRotation(m_PathTiles[0].transform.forward, Vector3.up);
-        transform.gameObject.SetActive(false);
-        transform.rotation = targetRotation;
-        transform.position = targetpos;
+        m_CurrentObject.transform.gameObject.SetActive(false);
+        m_CurrentObject.transform.rotation = targetRotation;
+        m_CurrentObject.transform.position = targetpos;
         m_TroopHealth = m_TroopCard._UnitData._Health;
         m_HealthBar.ResetHealthBar();
-        this.ClearPath();
-        PoolManager._instance._UnitPoolDict[m_TroopCard._UnitData.Type].Enqueue(this.gameObject);
+        m_CurrentIntance.ClearPath();
+        PoolManager._instance._UnitPoolDict[m_TroopCard._UnitData.Type].Enqueue(m_CurrentObject);
     }
 
     public void DropItem(GameObject troop, Vector3 p, GameObject lookatobj)
     {
-        if (troop == this.gameObject)
+        if (troop == m_CurrentObject)
         {
-            this.gameObject.gameObject.SetActive(true);
+            m_CurrentObject.gameObject.SetActive(true);
             UnitsManager.Instance.DropUnit(EventActions._SelectedUnitType);
 
-            this.gameObject.GetComponent<Troop>().SetupTroop();
-            this.gameObject.GetComponent<Troop>().TriggerMove();
+            m_CurrentIntance.SetupTroop();
+            m_CurrentIntance.TriggerMove();
         }
 
     }

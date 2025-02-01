@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class RayLauncher : MonoBehaviour
 {
-    [SerializeField] float m_DetectionDistance;
-    [SerializeField] Vector3 m_DetectionBoxSize;
-    [SerializeField] Vector3 m_OriginOffset;
-    [SerializeField] Vector3 m_EnemyDetectionOffset;
-    [SerializeField] float m_EnemyDetectionRadius;
+    [SerializeField] private float m_DetectionDistance;
+    [SerializeField] private Vector3 m_DetectionBoxSize;
+    [SerializeField] private Vector3 m_OriginOffset;
+    [SerializeField] private Vector3 m_EnemyDetectionOffset;
+    [SerializeField] private float m_EnemyDetectionRadius;
     [SerializeField] private Transform m_LaserHead;
     [SerializeField] private LaserGenerator m_LaserGenerator;
 
     private Troop currentTarget = null;
-    // Start is called before the first frame update
+    private Transform m_CurrentTransform;
+    private Collider[] m_DetectioResults = new Collider[100];
+    private Collider[] m_TargetsInRange = new Collider[100];
+
     void Start()
     {
+        m_CurrentTransform = transform;
         DetectTilesInfornt();
     }
     private void Update()
@@ -29,30 +33,29 @@ public class RayLauncher : MonoBehaviour
         Vector3 BoxCenter = (transform.position + m_OriginOffset) + (direction * m_DetectionDistance / 2);
         Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionBoxSize.z);
 
-        Collider[] collider = Physics.OverlapBox(BoxCenter,BoxSize/2,transform.rotation);
+        m_DetectioResults = Physics.OverlapBox(BoxCenter,BoxSize/2,transform.rotation);
 
-        foreach (Collider collider2 in collider)
+        foreach (Collider result in m_DetectioResults)
         {
-            if(collider2.transform.GetComponent<TileObject>() != null)
+            if(result.transform.GetComponent<TileObject>() != null)
             {
-                collider2.transform.GetComponent<TileObject>()._LookatObject = this.gameObject;
+                result.transform.GetComponent<TileObject>()._LookatObject = this.gameObject;
             }
-            UnitsManager.Instance._MirrorPlacableTiles.Add(collider2.gameObject);
+            UnitsManager.Instance._MirrorPlacableTiles.Add(result.gameObject);
         }
 
     }
 
+   #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Vector3 BoxCenter = (transform.position + m_OriginOffset) + (transform.forward * m_DetectionDistance / 2);
         Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionBoxSize.z);
         Gizmos.DrawCube(BoxCenter,BoxSize);
-        //Gizmos.color = Color.white;
-        //Gizmos.DrawSphere(this.transform.position + m_EnemyDetectionOffset, m_EnemyDetectionRadius);
     }
+   #endif
 
-    
     private void FindTarget()
     {
         if (m_LaserGenerator._laser._MirrorDeteced == true)
@@ -79,9 +82,10 @@ public class RayLauncher : MonoBehaviour
     //method to find new target
     private void FindNewTarget()
     {
+
         
-        Collider[] TargetsInRange = Physics.OverlapSphere(this.transform.position + m_EnemyDetectionOffset, m_EnemyDetectionRadius);
-        foreach (Collider Target in TargetsInRange)
+        m_TargetsInRange = Physics.OverlapSphere(m_CurrentTransform.position + m_EnemyDetectionOffset, m_EnemyDetectionRadius);
+        foreach (Collider Target in m_TargetsInRange)
         {
             if (Target.GetComponent<Troop>() != null)
             {
@@ -90,7 +94,6 @@ public class RayLauncher : MonoBehaviour
                     currentTarget = Target.GetComponent<Troop>();
                     m_LaserGenerator._laser._CurrentTarget = currentTarget.gameObject;
                     m_LaserGenerator._CanCastLaser = true;
-                    //print("Target in distance: " + Vector3.Distance(this.transform.position + m_OriginOffset_1, currentTarget.transform.position) + "<" + m_EnemyDetectionRadius);
                     break;
                 }
 
@@ -102,7 +105,6 @@ public class RayLauncher : MonoBehaviour
     private void ShootTarget()
     {
         m_LaserHead.transform.LookAt(currentTarget.transform.position);
-
     }
 
     //to reset launcher
@@ -111,7 +113,6 @@ public class RayLauncher : MonoBehaviour
         currentTarget = null;
         m_LaserGenerator._laser._CurrentTarget = null;
         m_LaserGenerator._CanCastLaser = false;
-       // m_LaserHead.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
     //to track target in Range
@@ -119,7 +120,7 @@ public class RayLauncher : MonoBehaviour
     {
         if(currentTarget != null)
         {
-            if (Vector3.Distance(this.transform.position + m_EnemyDetectionOffset, currentTarget.transform.position) < m_EnemyDetectionRadius)
+            if (Vector3.Distance(m_CurrentTransform.position + m_EnemyDetectionOffset, currentTarget.transform.position) < m_EnemyDetectionRadius)
             {
                 return true;
             }

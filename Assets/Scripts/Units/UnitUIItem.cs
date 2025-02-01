@@ -25,20 +25,23 @@ public class UnitUIItem : MonoBehaviour
 
     public UnitItem _UnitItem;
 
+    private UnitUIItem m_CurrentInstance;
+
     private void Update()
     {
         if(EventActions._SelectedUnitType != TroopType.Mirror)
         {
             UnitsManager.Instance.HighlightMirrorTiles(false);
         }
+        m_CurrentInstance = GetComponent<UnitUIItem>();
     }
     public void TriggerAddUnitsCount()
     {
-        UnitsManager.Instance.AddUnit(this._TroopType);
+        UnitsManager.Instance.AddUnit(m_CurrentInstance._TroopType);
     }
     public void TriggerRemoveUnitsCount()
     {
-        UnitsManager.Instance.DropUnit(this._TroopType);
+        UnitsManager.Instance.DropUnit(m_CurrentInstance._TroopType);
     }
 
     //to update units count once after drop and add units
@@ -52,33 +55,33 @@ public class UnitUIItem : MonoBehaviour
                 {
                     if (!drop)
                     {
-                        if ((UnitsManager.Instance._TotalTroopCount + this.m_UnitSlotCost) <= UnitsManager.Instance._LevelTroopData.maxTroopsSlot)
+                        if ((UnitsManager.Instance._TotalTroopCount + m_CurrentInstance.m_UnitSlotCost) <= UnitsManager.Instance._LevelTroopData.maxTroopsSlot)
                         {
 
-                            this._Count += 1;
-                            if (this._CountText)
+                            m_CurrentInstance._Count += 1;
+                            if (m_CurrentInstance._CountText)
                             {
-                                this._CountText.text = this._Count.ToString();
+                                m_CurrentInstance._CountText.text = m_CurrentInstance._Count.ToString();
                             }
-                            if (this._Count > 0)
+                            if (m_CurrentInstance._Count > 0)
                             {
-                                this.gameObject.SetActive(true);
+                                m_CurrentInstance.gameObject.SetActive(true);
                             }
                         }
                     }
                     else
                     {
-                        if (this._Count > 0)
+                        if (m_CurrentInstance._Count > 0)
                         {
-                            this._Count -= 1;
+                            m_CurrentInstance._Count -= 1;
                         }
-                        if (this._CountText)
+                        if (m_CurrentInstance._CountText)
                         {
-                            this._CountText.text = this._Count.ToString();
+                            m_CurrentInstance._CountText.text = m_CurrentInstance._Count.ToString();
                         }
-                        if (this._Count == 0)
+                        if (m_CurrentInstance._Count == 0)
                         {
-                            this.gameObject.SetActive(false);
+                            m_CurrentInstance.gameObject.SetActive(false);
                             EventActions._SelectedUnitType = TroopType.none;
                         }
 

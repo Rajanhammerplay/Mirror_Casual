@@ -10,11 +10,9 @@ public class PoolManager : MonoBehaviour
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDict = new Dictionary<TroopType, Queue<GameObject>>();
     public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDictCpy = new Dictionary<TroopType, Queue<GameObject>>();
     public GameObject _Pathparent;
-
-    private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
-
     public Camera m_UICamera;
 
+    private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
     void Start()
     {
         LevelUnitPool lvlunitpool = ScriptableObject.Instantiate(LevelManager.instance._LevelUnitPool[0]);
@@ -22,12 +20,6 @@ public class PoolManager : MonoBehaviour
         IntializePool();
         _instance = this;
     }
-
-    private void Update()
-    {
-
-    }
-
     public void IntializePool()
     {
 
@@ -58,7 +50,6 @@ public class PoolManager : MonoBehaviour
     {
         if (!_UnitPoolDict.ContainsKey(unittype))
         {
-            Debug.LogWarning("Type is not exists in Pool");
             return null;
         }
         if (_UnitPoolDict[unittype].Count > 0)
@@ -84,7 +75,6 @@ public class PoolManager : MonoBehaviour
     {
         foreach (GameObject gameObject in _UnitPoolDictCpy[TroopType.Mirror]) 
         {
-            print(gameObject + "==" + target);
             if (gameObject == target)
             {
                 if(gameObject.GetComponent<Mirror>()._IsSelected)
