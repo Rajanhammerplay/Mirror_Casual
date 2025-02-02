@@ -49,9 +49,9 @@ public class Laser
     public void CastBeam(Vector3 start,Vector3 dir,LineRenderer beam,string castwhile)
     {
         m_BeamIndices.Add(start);
-        int excludeRays = castwhile == "normal" ? (1 << 7) : (1 << 7 | 1 << 3);
+        int excludeRays = castwhile == "normal" ? (1 << 7) : (1 << 7 | 1 << 3 | 1 << 11);
         Ray ray = castwhile == "normal" ? new Ray(start, dir) : new Ray(start, dir + new Vector3(0f, 0.08f, 0f));
-        int maxdist = castwhile == "normal" ? 30 : 285;
+        int maxdist = castwhile == "normal" ? 30 : 300;
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,maxdist,~excludeRays))
         {
@@ -60,11 +60,16 @@ public class Laser
                 TileObject tileObject = hit.collider.GetComponent<TileObject>();
                 if (tileObject == null) 
                 {
+                    EventActions._UpdateHealerPos?.Invoke(Vector3.zero, false);
                     return;
                 }
                 if (tileObject._Tiletype == TileTypes.path) 
                 {
-                    EventActions._UpdateHealerPos?.Invoke(hit.point);
+                    EventActions._UpdateHealerPos?.Invoke(hit.point,true);
+                }
+                else
+                {
+                    EventActions._UpdateHealerPos?.Invoke(Vector3.zero, false);
                 }
                 
             }

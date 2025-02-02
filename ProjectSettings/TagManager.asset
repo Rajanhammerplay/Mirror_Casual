@@ -19,7 +19,7 @@ TagManager:
   - Mirror_Parts
   - Mirror
   - Path
-  - 
+  - Healer
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: Mirror
     uniqueID: 2814954205
+    locked: 0
+  - name: Healer
+    uniqueID: 679514447
     locked: 0

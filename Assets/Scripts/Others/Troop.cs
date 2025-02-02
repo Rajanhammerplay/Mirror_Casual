@@ -13,6 +13,7 @@ public class Troop : MonoBehaviour, IIUnityItem
     public float m_TroopHealth;
     public float m_healthlose;
     public Canvas m_HealthBarCanvas;
+    public bool _CanKillTroop;
 
     [Header("Movement Props")]
 
@@ -49,7 +50,10 @@ public class Troop : MonoBehaviour, IIUnityItem
 
     public void KillTroop()
     {
-
+        if (_CanKillTroop)
+        {
+            return;
+        }
         if(m_TroopHealth > 0f)
         {
             m_TroopHealth -= m_healthlose * Time.deltaTime;
@@ -141,5 +145,7 @@ public class Troop : MonoBehaviour, IIUnityItem
         }
 
     }
+
+
 
 }

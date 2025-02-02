@@ -20,7 +20,7 @@ MonoBehaviour:
     Cost: 0
     SlotCost: 2
     Image: {fileID: 484058279, guid: 6e7e7853ae2659c43ab6c388f143ff13, type: 3}
-    _Health: 30
+    _Health: 35
     _Prefab: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
     _InstanceIndex: 1
     _Count: 0

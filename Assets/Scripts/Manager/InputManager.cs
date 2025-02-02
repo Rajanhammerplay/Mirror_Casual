@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private GameObject m_Mirror;
     [SerializeField] private GameObject m_TroopSelectionUI;
+    [SerializeField] private TileObject m_PlayerPlacable;
 
     private Vector3 m_HitPoint;
     private Tilemap Tilemap;
@@ -48,6 +49,14 @@ public class InputManager : MonoBehaviour
 
     public void HandleInputs()
     {
+        if (EventActions._SelectedUnitType == TroopType.Troop_1 || EventActions._SelectedUnitType == TroopType.Troop_2)
+        {
+            m_PlayerPlacable.HighLightTile(true);
+        }
+        else
+        {
+            m_PlayerPlacable.HighLightTile(false);
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (IsPointerOverUI() || m_TroopSelectionActiveted)
@@ -59,6 +68,7 @@ public class InputManager : MonoBehaviour
             Vector3 pos = Vector3.zero;
             m_ray = m_MainCamera.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(m_ray, out m_Hit,300);
+
             if (m_Hit.collider.GetComponent<Mirror>())
             {
                 PoolManager._instance.UpdateMirrorStatus(m_Hit.collider.gameObject);
@@ -68,7 +78,6 @@ public class InputManager : MonoBehaviour
             {
                 if (EventActions._SelectedUnitType == TroopType.Mirror)
                 {
-
                     if (m_Hit.collider.transform.GetComponent<TileObject>())
                     {
                         Vector3 tilepos = m_Hit.collider.transform.GetComponent<TileObject>().GetTileData().tileworldpos;
@@ -82,11 +91,19 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
+                    print("troop type");
+                    
                     if (m_Hit.collider.GetComponent<Mirror>())
                     {
                         return;
                     }
-                    m_PoolManager.DropTroop(pos,this.gameObject);
+                    print("checkig tiles: " + m_Hit.collider.transform.GetComponent<TileObject>() + "==" + m_PlayerPlacable);
+                    if (m_Hit.collider.transform == m_PlayerPlacable.transform)
+                    {
+                        Vector3 tilepos = m_PlayerPlacable.GetTileData().tileworldpos;
+                        pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
+                        m_PoolManager.DropTroop(pos, this.gameObject);
+                    }
                 }
             }
 

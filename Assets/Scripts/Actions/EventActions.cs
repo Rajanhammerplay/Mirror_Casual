@@ -20,5 +20,5 @@ public class EventActions
     public static Action<int, int> _DropTroop;
 
     /*Healer actions*/
-    public static Action<Vector3> _UpdateHealerPos;
+    public static Action<Vector3,bool> _UpdateHealerPos;
 }
