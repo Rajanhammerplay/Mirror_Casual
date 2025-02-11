@@ -10,15 +10,14 @@ public class EventActions
     public static Action<Mirror> _DropMirror;
 
     /*units drag and drop actions*/
-    public static TroopType _SelectedUnitType = TroopType.none;
+    public static Defines.UnitType _SelectedUnitType = Defines.UnitType.none;
+    public static Action<GameObject> _SelectMirror;
     public static Action<GameObject> _SelectUnitFromPool;
-    public static Action<TroopType> _DropUnitOnGround;
-    public static Action<TroopType> _AddUnit;
+    public static Action<Defines.UnitType> _DropUnitOnGround;
+    public static Action<Defines.UnitType> _AddUnit;
 
     /*units shop actions*/
     public static Action<int,int> _AddTroop;
     public static Action<int, int> _DropTroop;
 
-    /*Healer actions*/
-    public static Action<Vector3,bool> _UpdateHealerPos;
 }

@@ -18,8 +18,8 @@ TagManager:
   - Ray
   - Mirror_Parts
   - Mirror
-  - Path
   - Healer
+  - Path
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
   - name: UI
     uniqueID: 1873317857
     locked: 0
+  - name: Healer
+    uniqueID: 679514447
+    locked: 0
   - name: Path
     uniqueID: 2305968149
     locked: 0
@@ -61,7 +64,4 @@ TagManager:
     locked: 0
   - name: Mirror
     uniqueID: 2814954205
-    locked: 0
-  - name: Healer
-    uniqueID: 679514447
     locked: 0

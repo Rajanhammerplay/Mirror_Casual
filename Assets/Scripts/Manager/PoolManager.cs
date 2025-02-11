@@ -7,18 +7,23 @@ using System.Linq;
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager _instance;
-    public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDict = new Dictionary<TroopType, Queue<GameObject>>();
-    public Dictionary<TroopType, Queue<GameObject>> _UnitPoolDictCpy = new Dictionary<TroopType, Queue<GameObject>>();
+    public Dictionary<Defines.UnitType, Queue<GameObject>> _UnitPoolDict = new Dictionary<Defines.UnitType, Queue<GameObject>>();
+    public Dictionary<Defines.UnitType, Queue<GameObject>> _UnitPoolDictCpy = new Dictionary<Defines.UnitType, Queue<GameObject>>();
     public GameObject _Pathparent;
     public Camera m_UICamera;
+    public GameObject _HealerObj;
 
     private List<UnitPool> m_ListOfUnitPool = new List<UnitPool>();
+
+    private void Awake()
+    {
+        _instance = this;
+    }
     void Start()
     {
         LevelUnitPool lvlunitpool = ScriptableObject.Instantiate(LevelManager.instance._LevelUnitPool[0]);
         m_ListOfUnitPool = lvlunitpool._ListOfUnitPool;
         IntializePool();
-        _instance = this;
     }
     public void IntializePool()
     {
@@ -46,7 +51,7 @@ public class PoolManager : MonoBehaviour
             _UnitPoolDictCpy.Add(m_ListOfUnitPool[i].Type, queuecpy);
         }
     }
-    public GameObject GetSpawnableObject(TroopType unittype)
+    public GameObject GetSpawnableObjectFromPool(Defines.UnitType unittype)
     {
         if (!_UnitPoolDict.ContainsKey(unittype))
         {
@@ -55,10 +60,6 @@ public class PoolManager : MonoBehaviour
         if (_UnitPoolDict[unittype].Count > 0)
         {
             GameObject spwanableunit = _UnitPoolDict[unittype].Dequeue();
-            if (unittype == TroopType.Mirror)
-            {
-                UpdateMirrorStatus(spwanableunit);
-            }
             return spwanableunit;
 
         }
@@ -71,37 +72,6 @@ public class PoolManager : MonoBehaviour
 
     }
 
-    public void UpdateMirrorStatus(GameObject target) 
-    {
-        foreach (GameObject gameObject in _UnitPoolDictCpy[TroopType.Mirror]) 
-        {
-            if (gameObject == target)
-            {
-                if(gameObject.GetComponent<Mirror>()._IsSelected)
-                {
-                    return;
-                }
-                gameObject.GetComponent<Mirror>()._IsSelected = true;
-                gameObject.GetComponent<Mirror>().ScaleLever(true);
-            }
-            else
-            {
-                gameObject.GetComponent<Mirror>()._IsSelected = false;
-                gameObject.GetComponent<Mirror>().ScaleLever(false);
-            }
-        }
-    }
-
-
-    public void DropTroop(Vector3 pos,GameObject lookatobj)
-    {
-        GameObject unitfrompool = GetSpawnableObject(EventActions._SelectedUnitType);
-        if (unitfrompool != null)
-        {
-            unitfrompool.GetComponent<IIUnityItem>().DropItem(unitfrompool,pos,lookatobj);
-        }
-            
-    }
 
 }
 

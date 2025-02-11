@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d9b3eb820c8734e88d674508988c47, type: 3}
+  m_Name: Healer_Mirror
+  m_EditorClassIdentifier: 
+  _UnitData:
+    Type: 1
+    Name: Mirror_Healer
+    Description: 
+    Level: 0
+    Cost: 0
+    SlotCost: 2
+    Image: {fileID: -1438975050, guid: 2927f4ebdbc2e47489e0b0ecfc78212a, type: 3}
+    _Health: 0
+    _Prefab: {fileID: 7255289047345274986, guid: 7e3bfb924cd0c7540b94d731cb734690, type: 3}
+    _InstanceIndex: 0
+    _Count: 0

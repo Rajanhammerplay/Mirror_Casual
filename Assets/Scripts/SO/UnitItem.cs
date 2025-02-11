@@ -9,19 +9,12 @@ public class UnitItem : ScriptableObject
     public UnitsData _UnitData;
 }
 
-public enum TroopType
-{
-    Mirror,
-    Troop_1,
-    Troop_2,
-    Jammer,
-    none
-}
+
 
 [System.Serializable]
 public class UnitsData
 {
-    public TroopType Type;
+    public Defines.UnitType Type;
     public string Name;
     public string Description;
     public int Level;

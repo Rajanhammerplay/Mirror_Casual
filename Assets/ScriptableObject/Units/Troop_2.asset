@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Troop_2
   m_EditorClassIdentifier: 
   _UnitData:
-    Type: 2
+    Type: 3
     Name: Golem
     Description: 
     Level: 0
@@ -22,5 +22,5 @@ MonoBehaviour:
     Image: {fileID: -196521310, guid: 9272e75210ba6f54c8e0281946c8f42a, type: 3}
     _Health: 30
     _Prefab: {fileID: 1073998731096710082, guid: b12c821a4009f504a89f26e0afd0475d, type: 3}
-    _InstanceIndex: 2
+    _InstanceIndex: 3
     _Count: 0

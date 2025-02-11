@@ -230,7 +230,7 @@ MonoBehaviour:
   m_DetectionDistance: 10.4
   m_DetectionBoxSize: {x: 11.53, y: 1, z: 0}
   m_OriginOffset: {x: -3.83, y: -3.74, z: -1}
-  m_OriginOffset_1: {x: 0, y: 0, z: 0}
+  m_EnemyDetectionOffset: {x: 0, y: 0, z: 0}
   m_EnemyDetectionRadius: 0
   m_LaserHead: {fileID: 0}
   m_LaserGenerator: {fileID: 0}
@@ -284,6 +284,7 @@ MonoBehaviour:
   EdgeBounds: {x: 0, y: 0}
   tile: {fileID: 11400000, guid: 815b7c7aa26e9d94e82009cfd0fb730b, type: 2}
   _LookatObject: {fileID: 0}
+  _Tiletype: 0
 --- !u!1001 &1505303732522445234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,6 +313,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 574000112, guid: 53605eb690014b04a87a15f8953144b5, type: 3}
+      propertyPath: _laserobj
+      value: 
+      objectReference: {fileID: 6773998553492342860, guid: 67cb5c1b5a4dd27449326308846f8b2f, type: 3}
     - target: {fileID: 2738870379487704376, guid: 53605eb690014b04a87a15f8953144b5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -425,7 +430,7 @@ MonoBehaviour:
   m_DetectionDistance: 12.54
   m_DetectionBoxSize: {x: 7.18, y: 1, z: 0}
   m_OriginOffset: {x: -4.09, y: 0, z: 4.26}
-  m_OriginOffset_1: {x: 0, y: 0, z: 0}
+  m_EnemyDetectionOffset: {x: 0, y: 0, z: 0}
   m_EnemyDetectionRadius: 0
   m_LaserHead: {fileID: 3666358758694837386}
   m_LaserGenerator: {fileID: 1505303732020535874}

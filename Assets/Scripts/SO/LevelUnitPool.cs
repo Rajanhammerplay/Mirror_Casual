@@ -11,7 +11,7 @@ public class LevelUnitPool:ScriptableObject
 [System.Serializable]
 public class UnitPool
 {
-    public TroopType Type;
+    public Defines.UnitType Type;
     public GameObject Prefab;
     public int PoolSize;
 }

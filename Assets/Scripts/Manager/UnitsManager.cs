@@ -1,183 +1,152 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
+using static Defines;
 
-//responsible to manage Units Data Detais while add and remove
 public class UnitsManager : MonoBehaviour
 {
-    public static UnitsManager Instance;
-    public LevelTroops _LevelTroopData;
-    public int _TotalTroopCount = 0;
-    public Dictionary<UnitItem, int> _UnitItemsList = new Dictionary<UnitItem, int>();
+    public static UnitsManager _Instance;
+
+    private Dictionary<UnitType, List<IUnitItem>> _unitsByType;
+    private Dictionary<UnitType, IUnitItem> _selectedUnits;
     public List<GameObject> _MirrorPlacableTiles = new List<GameObject>();
-    public List<UnitDetails> _UnitItemsTempList = new List<UnitDetails>(); // which controls the count of units in both main and selected units
-    
-
-    [SerializeField] private TextMeshProUGUI m_Totalslot;
-    [SerializeField] private TextMeshProUGUI m_slot;
-
-    [SerializeField] private Transform m_SelectionUnitParent;
-    [SerializeField] private Transform m_SelectedUnitParent;
-    [SerializeField] private Transform m_DefaultUnitParent;
-    [SerializeField] private float _OtherMirrorInRadius;
-    [SerializeField] private Tilemap Tilemap;
+    public GameObject m_PlayerPlacableTiles;
 
     private void Awake()
     {
-        Instance = this;
+        _Instance = this;
+        _unitsByType = new Dictionary<UnitType, List<IUnitItem>>();
+        _selectedUnits = new Dictionary<UnitType, IUnitItem>();
 
-        InitializeUnitsDataList();
-
-        UpdateTroopSlot();
-
-        EventActions._DropUnitOnGround += DropUnit; // will be invoke while drop in ground and remove selected units of wave
-        EventActions._AddUnit += AddUnit; // will be invoke while select units for a wave
-    }
-
-    //to initalize unitsdata
-    private void InitializeUnitsDataList()
-    {
-
-        int index = 0;
-        foreach (UnitItem item in _LevelTroopData.DefaultUnits)
+        // Initialize lists for each unit type
+        foreach (UnitType type in System.Enum.GetValues(typeof(UnitType)))
         {
-            _TotalTroopCount += item._UnitData.SlotCost;
-            if (_UnitItemsList.ContainsKey(item))
-            {
-                _UnitItemsList[item]++;
-            }
-            else
-            {
-                _UnitItemsList.Add(item, 1);
-                index++;
-            }
-        }
-        foreach (var item in _UnitItemsList)
-        {
-            UnitDetails udet = new UnitDetails(item.Key._UnitData,item.Value);
-            _UnitItemsTempList.Add(udet);
+            _unitsByType[type] = new List<IUnitItem>();
         }
     }
 
-    //to update count and total slot count
-    public void UpdateTroopSlot()
+    void Start()
     {
-        m_Totalslot.text = _LevelTroopData.maxTroopsSlot.ToString();
-        m_slot.text = _TotalTroopCount.ToString();
+        
     }
-
-    public void DropUnit(TroopType trooptype)
+    public void RegisterUnit(IUnitItem unit)
     {
-        int slotcost = 0;
-        foreach (Transform unititem in m_SelectedUnitParent)
+        UnitType type = unit.GetUnitType();
+        if (!_unitsByType[type].Contains(unit))
         {
-            if (unititem.GetComponent<UnitUIItem>() && unititem.GetComponent<UnitUIItem>()._TroopType == trooptype)
-            {
-                unititem.GetComponent<UnitUIItem>().UpdateUnitItemCount(true);
-                slotcost = unititem.GetComponent<UnitUIItem>().m_UnitSlotCost;
-
-            }
-        }
-        foreach (Transform unititem in m_DefaultUnitParent)
-        {
-            if (unititem.GetComponent<UnitUIItem>() && unititem.GetComponent<UnitUIItem>()._TroopType == trooptype)
-            {
-                unititem.GetComponent<UnitUIItem>().UpdateUnitItemCount(true);
-            }
-        }
-        if ((_TotalTroopCount - slotcost) >= 0)
-        {
-            _TotalTroopCount -= slotcost;
-            UpdateTroopSlot();
+            _unitsByType[type].Add(unit);
         }
     }
 
-    // while select Units
-    public void AddUnit(TroopType trooptype)
+    public void UnregisterUnit(IUnitItem unit)
     {
-        int slotcost = 0;
-        foreach (Transform unititem in m_SelectedUnitParent)
+        UnitType type = unit.GetUnitType();
+        _unitsByType[type].Remove(unit);
+
+        if (_selectedUnits.ContainsKey(type) && _selectedUnits[type] == unit)
         {
-            if (unititem.GetComponent<UnitUIItem>() && unititem.GetComponent<UnitUIItem>()._TroopType == trooptype)
-            {
-                unititem.GetComponent<UnitUIItem>().UpdateUnitItemCount(false);
-                slotcost = unititem.GetComponent<UnitUIItem>().m_UnitSlotCost;
-
-            }
-        }
-
-        foreach (Transform unititem in m_DefaultUnitParent)
-        {
-            if (unititem.GetComponent<UnitUIItem>() && unititem.GetComponent<UnitUIItem>()._TroopType == trooptype)
-            {
-                unititem.GetComponent<UnitUIItem>().UpdateUnitItemCount(false);
-
-            }
-        }
-
-        if ((_TotalTroopCount + slotcost) <= _LevelTroopData.maxTroopsSlot)
-        {
-            _TotalTroopCount += slotcost;
-            UpdateTroopSlot();
+            _selectedUnits.Remove(type);
         }
     }
 
-    //to check already any mirror there in given radius
-    public bool IsMirrorDetected(Vector3 pos)
+    public void SelectUnit(IUnitItem unit)
     {
-        Collider[] colliders = Physics.OverlapSphere(pos,_OtherMirrorInRadius);
-        if (colliders.Length > 0)
+        UnitType type = unit.GetUnitType();
+
+        // Deselect currently selected unit of the same type
+        if (_selectedUnits.ContainsKey(type) && _selectedUnits[type] != unit)
         {
-            foreach (var collider in colliders)
+            _selectedUnits[type].SetSelected(false);
+        }
+
+        _selectedUnits[type] = unit;
+        unit.SetSelected(true);
+    }
+
+    public IUnitItem GetSelectedUnit(UnitType type)
+    {
+        return _selectedUnits.ContainsKey(type) ? _selectedUnits[type] : null;
+    }
+
+    public List<IUnitItem> GetAllUnitsOfType(UnitType type)
+    {
+        return _unitsByType[type];
+    }
+
+    public bool IsPlacableTile(GameObject obj,UnitType type)
+    {
+        if(type == Defines.UnitType.NormalMirror || type == Defines.UnitType.HealerMirror)
+        {
+            if (_MirrorPlacableTiles.Count > 0)
             {
-                if (collider.gameObject.tag == "mirror")
+                foreach (var tile in _MirrorPlacableTiles)
                 {
-                    return false;
+                    if (tile == obj)
+                    {
+                        return true;
+                    }
                 }
             }
         }
-        return true;
+        else if(type == Defines.UnitType.Troop_1 || type == Defines.UnitType.Troop_2)
+        {
+            if(m_PlayerPlacableTiles == obj)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public GameObject IsMirrorPlacable(GameObject tileobj)
+    public void HighlighTiles(UnitType type)
     {
-        if (_MirrorPlacableTiles.Count > 0)
+        if (type == Defines.UnitType.NormalMirror || type == Defines.UnitType.HealerMirror)
         {
-            foreach (var tile in _MirrorPlacableTiles)
+            if (_MirrorPlacableTiles.Count > 0)
             {
-                if(tile == tileobj)
+                foreach (var tile in _MirrorPlacableTiles)
                 {
-                    return tile;
+                    tile.gameObject.GetComponent<TileObject>().HighLightTile(true);
                 }
             }
         }
-        return null;
+        else
+        {
+            if (_MirrorPlacableTiles.Count > 0)
+            {
+                foreach (var tile in _MirrorPlacableTiles)
+                {
+                    tile.gameObject.GetComponent<TileObject>().HighLightTile(false);
+                }
+            }
+        }
+        if (type == Defines.UnitType.Troop_1 || type == Defines.UnitType.Troop_2)
+        {
+            if (m_PlayerPlacableTiles)
+            {
+                m_PlayerPlacableTiles.gameObject.GetComponent<TileObject>().HighLightTile(true);
+            }
+        }
+        else
+        {
+            if (m_PlayerPlacableTiles)
+            {
+                m_PlayerPlacableTiles.gameObject.GetComponent<TileObject>().HighLightTile(false);
+            }
+        }
     }
 
-    public void HighlightMirrorTiles(bool h)
+    public void DropUnit(Vector3 pos, GameObject lookatobj)
     {
-        if (_MirrorPlacableTiles.Count > 0)
+        GameObject unitfrompool = PoolManager._instance.GetSpawnableObjectFromPool(EventActions._SelectedUnitType);
+        SelectUnit(unitfrompool?.GetComponent<IUnitItem>());
+        if (unitfrompool != null)
         {
-            foreach (var tile in _MirrorPlacableTiles)
-            {
-                tile.gameObject.GetComponent<TileObject>().HighLightTile(h);
-            }
+            unitfrompool.GetComponent<IUnitItem>().DropItem(unitfrompool, pos, lookatobj);
         }
 
     }
-}
-public class UnitDetails
-{
-    public UnitsData UnitsData;
-    public int Count;
 
-    public UnitDetails(UnitsData ud,int count) 
-    {
-        this.UnitsData = ud;
-        this.Count = count;
-    }
 }

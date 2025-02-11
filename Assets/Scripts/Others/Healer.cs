@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Healer : MonoBehaviour
 {
+    [SerializeField] float HealerMovespeed = 1.6f;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] float radius;
 
     private GameObject m_CurrentObject;
     public int segments = 36;
+    public bool _ShowHealer;
+
     private void Awake()
     {
-        EventActions._UpdateHealerPos += DrawCircleAround;
     }
     // Start is called before the first frame update
     void Start()
@@ -20,17 +22,22 @@ public class Healer : MonoBehaviour
         m_CurrentObject.SetActive(false);
     }
 
-    private void DrawCircleAround(Vector3 pos,bool showhealer)
-    {
-        if (showhealer == false)
-        {
-            m_CurrentObject.SetActive(showhealer);
-            return;
-        }
-        m_CurrentObject.SetActive(showhealer);
-        Vector3 newpos = Vector3.Lerp(m_CurrentObject.transform.position, pos, 1.6f);
-        m_CurrentObject.transform.position = newpos;
-    }
+    //public void DrawCircleAround(Vector3 pos)
+    //{
+    //    if (_ShowHealer == false)
+    //    {
+    //        m_CurrentObject.SetActive(_ShowHealer);
+    //        return;
+    //    }
+    //    m_CurrentObject.SetActive(_ShowHealer);
+    //    Vector3 newpos = Vector3.Lerp(m_CurrentObject.transform.position, pos, HealerMovespeed);
+    //    m_CurrentObject.transform.position = newpos;
+    //}
+
+    //private void UpdateStatus(bool stat)
+    //{
+    //    _ShowHealer = stat;
+    //}
 
     Troop troop;
 

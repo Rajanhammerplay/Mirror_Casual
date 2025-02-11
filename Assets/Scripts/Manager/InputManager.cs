@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     public LayerMask LayerMaskToIgnore;
     public PoolManager m_PoolManager;
     public float _Radius;
+    public static InputManager _Instance;
 
     [SerializeField] private GameObject m_Mirror;
     [SerializeField] private GameObject m_TroopSelectionUI;
@@ -33,6 +34,7 @@ public class InputManager : MonoBehaviour
     {
         m_PointerEventData = new PointerEventData(EventSystem.current);
         m_RaycastResults = new List<RaycastResult>();
+        _Instance = GetComponent<InputManager>();
     }
     private void Start()
     {
@@ -49,7 +51,7 @@ public class InputManager : MonoBehaviour
 
     public void HandleInputs()
     {
-        if (EventActions._SelectedUnitType == TroopType.Troop_1 || EventActions._SelectedUnitType == TroopType.Troop_2)
+        if (EventActions._SelectedUnitType == Defines.UnitType.Troop_1 || EventActions._SelectedUnitType == Defines.UnitType.Troop_2)
         {
             m_PlayerPlacable.HighLightTile(true);
         }
@@ -64,45 +66,42 @@ public class InputManager : MonoBehaviour
                 return;
             }
 
-
             Vector3 pos = Vector3.zero;
             m_ray = m_MainCamera.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(m_ray, out m_Hit,300);
+           // IUnitItem unititem = m_Hit.collider.transform?.GetComponent<IUnitItem>();
+            //if (m_Hit.collider.GetComponent<Mirror>())
+            //{
+            //    PoolManager._instance.UpdateMirrorStatus(m_Hit.collider.gameObject);
+            //}
 
-            if (m_Hit.collider.GetComponent<Mirror>())
+            if (EventActions._SelectedUnitType != Defines.UnitType.none)
             {
-                PoolManager._instance.UpdateMirrorStatus(m_Hit.collider.gameObject);
-            }
-
-            if (EventActions._SelectedUnitType != TroopType.none)
-            {
-                if (EventActions._SelectedUnitType == TroopType.Mirror)
+                if (Defines.IsMirrorType(EventActions._SelectedUnitType))
                 {
                     if (m_Hit.collider.transform.GetComponent<TileObject>())
                     {
                         Vector3 tilepos = m_Hit.collider.transform.GetComponent<TileObject>().GetTileData().tileworldpos;
                         GameObject tilerot = m_Hit.collider.gameObject;
-                        if (UnitsManager.Instance.IsMirrorPlacable(m_Hit.collider.gameObject) && UnitsManager.Instance.IsMirrorDetected(tilepos))
+
+                        if (UnitsManager._Instance.IsPlacableTile(m_Hit.collider.gameObject, EventActions._SelectedUnitType))
                         {
                             pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
-                            m_PoolManager.DropTroop(pos,tilerot);
+                            UnitsManager._Instance.DropUnit(pos,tilerot);
                         }
                     }
                 }
                 else
                 {
-                    print("troop type");
-                    
                     if (m_Hit.collider.GetComponent<Mirror>())
                     {
                         return;
                     }
-                    print("checkig tiles: " + m_Hit.collider.transform.GetComponent<TileObject>() + "==" + m_PlayerPlacable);
-                    if (m_Hit.collider.transform == m_PlayerPlacable.transform)
+                    if (UnitsManager._Instance.IsPlacableTile(m_Hit.collider.gameObject, EventActions._SelectedUnitType))
                     {
                         Vector3 tilepos = m_PlayerPlacable.GetTileData().tileworldpos;
                         pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
-                        m_PoolManager.DropTroop(pos, this.gameObject);
+                        UnitsManager._Instance.DropUnit(pos, this.gameObject);
                     }
                 }
             }

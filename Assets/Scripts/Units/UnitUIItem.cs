@@ -8,7 +8,6 @@ using UnityEngine.UI;
 //responsible for showing count of unit items and drop and add 
 public class UnitUIItem : MonoBehaviour
 {
-
     public TextMeshProUGUI _CountText;
 
     public TextMeshProUGUI _SlotCostText;
@@ -19,7 +18,7 @@ public class UnitUIItem : MonoBehaviour
 
     public int m_UnitSlotCost;
 
-    public TroopType _TroopType;
+    public Defines.UnitType _UnitType;
 
     public bool _TroopSelected;
 
@@ -27,35 +26,31 @@ public class UnitUIItem : MonoBehaviour
 
     private UnitUIItem m_CurrentInstance;
 
-    private void Update()
+    private void Start()
     {
-        if(EventActions._SelectedUnitType != TroopType.Mirror)
-        {
-            UnitsManager.Instance.HighlightMirrorTiles(false);
-        }
         m_CurrentInstance = GetComponent<UnitUIItem>();
     }
     public void TriggerAddUnitsCount()
     {
-        UnitsManager.Instance.AddUnit(m_CurrentInstance._TroopType);
+        UnitsUIManager.Instance.AddUnit(m_CurrentInstance._UnitType);
     }
     public void TriggerRemoveUnitsCount()
     {
-        UnitsManager.Instance.DropUnit(m_CurrentInstance._TroopType);
+        UnitsUIManager.Instance.DropUnit(m_CurrentInstance._UnitType);
     }
 
     //to update units count once after drop and add units
     public void UpdateUnitItemCount(bool drop)
     {
-        if (UnitsManager.Instance._UnitItemsTempList.Count > 0) 
+        if (UnitsUIManager.Instance._UnitItemsTempList.Count > 0) 
         { 
-            foreach(UnitDetails item in UnitsManager.Instance._UnitItemsTempList)
+            foreach(UnitDetails item in UnitsUIManager.Instance._UnitItemsTempList)
             {
                 if(item.UnitsData._InstanceIndex == _InstanceIndex)
                 {
                     if (!drop)
                     {
-                        if ((UnitsManager.Instance._TotalTroopCount + m_CurrentInstance.m_UnitSlotCost) <= UnitsManager.Instance._LevelTroopData.maxTroopsSlot)
+                        if ((UnitsUIManager.Instance._TotalTroopCount + m_CurrentInstance.m_UnitSlotCost) <= UnitsUIManager.Instance._LevelTroopData.maxTroopsSlot)
                         {
 
                             m_CurrentInstance._Count += 1;
@@ -82,7 +77,7 @@ public class UnitUIItem : MonoBehaviour
                         if (m_CurrentInstance._Count == 0)
                         {
                             m_CurrentInstance.gameObject.SetActive(false);
-                            EventActions._SelectedUnitType = TroopType.none;
+                            EventActions._SelectedUnitType = Defines.UnitType.none;
                         }
 
                     }
@@ -92,20 +87,11 @@ public class UnitUIItem : MonoBehaviour
         }
     }
 
-   
-
-
+ 
     public void TriggerSelectUnit()
     {
-        EventActions._SelectedUnitType = _TroopType;
-        if(EventActions._SelectedUnitType == TroopType.Mirror)
-        {
-            UnitsManager.Instance.HighlightMirrorTiles(true);
-        }
-        else
-        {
-            UnitsManager.Instance.HighlightMirrorTiles(false);
-        }
+        EventActions._SelectedUnitType = _UnitType;
+        UnitsManager._Instance.HighlighTiles(_UnitType);
     }
 
   

@@ -16,7 +16,6 @@ public class RayLauncher : MonoBehaviour
     private Transform m_CurrentTransform;
     private Collider[] m_DetectioResults = new Collider[100];
     private Collider[] m_TargetsInRange = new Collider[100];
-
     void Start()
     {
         m_CurrentTransform = transform;
@@ -41,7 +40,8 @@ public class RayLauncher : MonoBehaviour
             {
                 result.transform.GetComponent<TileObject>()._LookatObject = this.gameObject;
             }
-            UnitsManager.Instance._MirrorPlacableTiles.Add(result.gameObject);
+            UnitsUIManager.Instance._MirrorPlacableTiles.Add(result.gameObject);
+            UnitsManager._Instance._MirrorPlacableTiles.Add(result.gameObject);
         }
 
     }
@@ -111,7 +111,14 @@ public class RayLauncher : MonoBehaviour
     private void ResetLauncher()
     {
         currentTarget = null;
-        m_LaserGenerator._laser._CurrentTarget = null;
+        if( m_LaserGenerator._laser._CurrentTarget!=null && m_LaserGenerator._laser._CurrentTarget.GetComponent<Mirror>()!=null)
+        {
+            if (m_LaserGenerator._laser._CurrentTarget.GetComponent<Mirror>().MirrorType == Defines.UnitType.HealerMirror)
+            {
+                m_LaserGenerator._laser._CurrentTarget = null;
+            }
+        }
+
         m_LaserGenerator._CanCastLaser = false;
     }
 

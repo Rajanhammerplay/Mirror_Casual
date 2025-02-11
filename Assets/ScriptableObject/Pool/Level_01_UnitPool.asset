@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Level_01_UnitPool
   m_EditorClassIdentifier: 
   _ListOfUnitPool:
-  - Type: 0
+  - Type: 1
     Prefab: {fileID: 7255289047345274986, guid: 7e3bfb924cd0c7540b94d731cb734690, type: 3}
     PoolSize: 7
-  - Type: 1
-    Prefab: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
+  - Type: 0
+    Prefab: {fileID: 7255289047345274986, guid: bd64e4f961f34f142b4a1bbf37b859ac, type: 3}
     PoolSize: 7
   - Type: 2
+    Prefab: {fileID: 1073998731096710082, guid: 66a1ea5769643e743b5cb8bbdc043550, type: 3}
+    PoolSize: 7
+  - Type: 3
     Prefab: {fileID: 1073998731096710082, guid: b12c821a4009f504a89f26e0afd0475d, type: 3}
     PoolSize: 5
