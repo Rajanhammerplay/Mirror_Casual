@@ -8,7 +8,8 @@ public class DefaultValues
 {
     //laser prop val
     public const int MAX_CAP = 10;
-    public const int NORMAL_RAY_DIST = 30, REFLECFT_RAY_DIST = 300;
+    public const int NORMAL_RAY_DIST = 30, REFLECFT_RAY_DIST = 50;
     public const float MIN_HEALER_BOUND = 19f, MAX_HEALER_BOUND = 29f;
+    public const float HEALER_LIFE_TIME = 6.5f;
 }
 

@@ -37,6 +37,7 @@ public class Mirror : MonoBehaviour,IUnitItem
     public float _RotSpeed = 40f;
     public float yPos;
     public bool _IsSelected = false;
+    public float InitAngle = 0;
 
     private void Awake()
     {
@@ -248,6 +249,7 @@ public class Mirror : MonoBehaviour,IUnitItem
     public void SetSelected(bool selected)
     {
         _IsSelected = selected;
+        EventActions.CheckCanSwipe.Invoke(_IsSelected);
         ScaleLever(selected);
     }
 
@@ -277,12 +279,15 @@ public class Mirror : MonoBehaviour,IUnitItem
     {
         if (go == this.gameObject && IsSameItemNearby(p))
         {
+            EventActions.CheckCanSwipe.Invoke(true);
             this.gameObject.SetActive(true);
             this.gameObject.transform.position = p;
             Vector3 currentrot = this.transform.localEulerAngles;
             Vector3 lookatrot = new Vector3(currentrot.x, (lookatobj.transform.localEulerAngles.y - 90), currentrot.z);
             this.transform.eulerAngles = lookatrot;
             UnitsUIManager.Instance.DropUnit(EventActions._SelectedUnitType);
+            EventActions.CheckCanSwipe.Invoke(false);
+            InitAngle = _Mirror.transform.rotation.y;
         }
     }
 

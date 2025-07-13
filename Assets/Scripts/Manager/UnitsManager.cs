@@ -108,6 +108,10 @@ public class UnitsManager : MonoBehaviour
             {
                 foreach (var tile in _MirrorPlacableTiles)
                 {
+                    if (!tile.gameObject.GetComponent<TileObject>())
+                    {
+                        return;
+                    }
                     tile.gameObject.GetComponent<TileObject>().HighLightTile(true);
                 }
             }
@@ -118,6 +122,10 @@ public class UnitsManager : MonoBehaviour
             {
                 foreach (var tile in _MirrorPlacableTiles)
                 {
+                    if (!tile.gameObject.GetComponent<TileObject>())
+                    {
+                        return;
+                    }
                     tile.gameObject.GetComponent<TileObject>().HighLightTile(false);
                 }
             }
@@ -126,6 +134,10 @@ public class UnitsManager : MonoBehaviour
         {
             if (m_PlayerPlacableTiles)
             {
+                if (!m_PlayerPlacableTiles.gameObject.GetComponent<TileObject>())
+                {
+                    return;
+                }
                 m_PlayerPlacableTiles.gameObject.GetComponent<TileObject>().HighLightTile(true);
             }
         }
@@ -133,6 +145,10 @@ public class UnitsManager : MonoBehaviour
         {
             if (m_PlayerPlacableTiles)
             {
+                if (!m_PlayerPlacableTiles.gameObject.GetComponent<TileObject>())
+                {
+                    return;
+                }
                 m_PlayerPlacableTiles.gameObject.GetComponent<TileObject>().HighLightTile(false);
             }
         }

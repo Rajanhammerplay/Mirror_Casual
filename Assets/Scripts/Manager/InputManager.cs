@@ -69,11 +69,6 @@ public class InputManager : MonoBehaviour
             Vector3 pos = Vector3.zero;
             m_ray = m_MainCamera.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(m_ray, out m_Hit,300);
-           // IUnitItem unititem = m_Hit.collider.transform?.GetComponent<IUnitItem>();
-            //if (m_Hit.collider.GetComponent<Mirror>())
-            //{
-            //    PoolManager._instance.UpdateMirrorStatus(m_Hit.collider.gameObject);
-            //}
 
             if (EventActions._SelectedUnitType != Defines.UnitType.none)
             {
@@ -122,9 +117,11 @@ public class InputManager : MonoBehaviour
         {
             if (m_RaycastResults[i].gameObject.GetComponent<UnityEngine.UI.Image>() != null)
             {
+                EventActions.CheckCanSwipe.Invoke(true);
                 return true;
             }
         }
+        EventActions.CheckCanSwipe.Invoke(false);
         return false;
     }
 

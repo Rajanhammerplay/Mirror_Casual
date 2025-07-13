@@ -20,4 +20,6 @@ public class EventActions
     public static Action<int,int> _AddTroop;
     public static Action<int, int> _DropTroop;
 
+    public static Action<bool> CheckCanSwipe;
+
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Healer : MonoBehaviour
+public class Healer : MonoBehaviour,ISpecialItem
 {
     [SerializeField] float HealerMovespeed = 1.6f;
     [SerializeField] LineRenderer lineRenderer;
@@ -22,22 +22,7 @@ public class Healer : MonoBehaviour
         m_CurrentObject.SetActive(false);
     }
 
-    //public void DrawCircleAround(Vector3 pos)
-    //{
-    //    if (_ShowHealer == false)
-    //    {
-    //        m_CurrentObject.SetActive(_ShowHealer);
-    //        return;
-    //    }
-    //    m_CurrentObject.SetActive(_ShowHealer);
-    //    Vector3 newpos = Vector3.Lerp(m_CurrentObject.transform.position, pos, HealerMovespeed);
-    //    m_CurrentObject.transform.position = newpos;
-    //}
 
-    //private void UpdateStatus(bool stat)
-    //{
-    //    _ShowHealer = stat;
-    //}
 
     Troop troop;
 
@@ -57,6 +42,23 @@ public class Healer : MonoBehaviour
         {
             troop._CanKillTroop = false;
         }
+    }
+
+    void ISpecialItem.ShowSpecialItem()
+    {
+        HealerActivated();
+    }
+
+    void ISpecialItem.HideSpecialItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IEnumerator HealerActivated()
+    {
+        gameObject.SetActive(true);
+        yield return new WaitForSeconds(DefaultValues.HEALER_LIFE_TIME);
+        gameObject.SetActive(false);
     }
 }
 

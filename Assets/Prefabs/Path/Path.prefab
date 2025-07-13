@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6437728472908368948}
   - component: {fileID: 4143000880665419466}
   - component: {fileID: 4509692477696557555}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Path
-  m_TagString: Untagged
+  m_TagString: path
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7523900261545363695}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.274165, z: 1}
+  m_LocalScale: {x: 6, y: 0.274165, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,4 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c20d9392146aa4bab632452d3c2cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _HealerObject: {fileID: 0}
+  EdgeBounds: {x: 0, y: 0}
   tile: {fileID: 11400000, guid: 83e9317b78864914f81be727c7d4c0ad, type: 2}
+  _LookatObject: {fileID: 0}
+  _Tiletype: 1
+  _HealerEnabled: 0

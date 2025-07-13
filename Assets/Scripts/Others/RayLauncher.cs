@@ -29,10 +29,10 @@ public class RayLauncher : MonoBehaviour
     {
         Vector3 direction = transform.forward;
 
-        Vector3 BoxCenter = (transform.position + m_OriginOffset) + (direction * m_DetectionDistance / 2);
+        Vector3 BoxCenter = transform.position + (direction * m_DetectionDistance) + m_OriginOffset;
         Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionBoxSize.z);
 
-        m_DetectioResults = Physics.OverlapBox(BoxCenter,BoxSize/2,transform.rotation);
+        m_DetectioResults = Physics.OverlapBox(BoxCenter,BoxSize, transform.rotation);
 
         foreach (Collider result in m_DetectioResults)
         {
@@ -50,18 +50,21 @@ public class RayLauncher : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Vector3 BoxCenter = (transform.position + m_OriginOffset) + (transform.forward * m_DetectionDistance / 2);
+        Vector3 BoxCenter = transform.position + (transform.forward * m_DetectionDistance) + m_OriginOffset;
+
         Vector3 BoxSize = new Vector3(m_DetectionBoxSize.x, m_DetectionBoxSize.y, m_DetectionBoxSize.z);
-        Gizmos.DrawCube(BoxCenter,BoxSize);
+       // Gizmos.matrix = Matrix4x4.TRS(BoxCenter, transform.rotation, Vector3.one);
+        Gizmos.DrawCube(BoxCenter,m_DetectionBoxSize);
+        Gizmos.DrawWireSphere(transform.position + m_EnemyDetectionOffset, m_EnemyDetectionRadius);
     }
    #endif
 
     private void FindTarget()
     {
-        if (m_LaserGenerator._laser._MirrorDeteced == true)
-        {
-            return;
-        }
+        //if (m_LaserGenerator._laser._MirrorDeteced == true)
+        //{
+        //    return;
+        //}
         if (currentTarget != null && IsTargetInRange() == false)
         {
             ResetLauncher();
@@ -89,13 +92,13 @@ public class RayLauncher : MonoBehaviour
         {
             if (Target.GetComponent<Troop>() != null)
             {
-                if (currentTarget == null)
-                {
-                    currentTarget = Target.GetComponent<Troop>();
-                    m_LaserGenerator._laser._CurrentTarget = currentTarget.gameObject;
-                    m_LaserGenerator._CanCastLaser = true;
-                    break;
-                }
+                //if (currentTarget == null)
+                //{
+                //    currentTarget = Target.GetComponent<Troop>();
+                //    m_LaserGenerator._laser._CurrentTarget = currentTarget.gameObject;
+                //    m_LaserGenerator._CanCastLaser = true;
+                //    break;
+                //}
 
             }
         }
@@ -110,16 +113,16 @@ public class RayLauncher : MonoBehaviour
     //to reset launcher
     private void ResetLauncher()
     {
-        currentTarget = null;
-        if( m_LaserGenerator._laser._CurrentTarget!=null && m_LaserGenerator._laser._CurrentTarget.GetComponent<Mirror>()!=null)
-        {
-            if (m_LaserGenerator._laser._CurrentTarget.GetComponent<Mirror>().MirrorType == Defines.UnitType.HealerMirror)
-            {
-                m_LaserGenerator._laser._CurrentTarget = null;
-            }
-        }
+        //currentTarget = null;
+        //if( m_LaserGenerator._laser._CurrentTarget!=null && m_LaserGenerator._laser._CurrentTarget.GetComponent<Mirror>()!=null)
+        //{
+        //    if (m_LaserGenerator._laser._CurrentTarget.GetComponent<Mirror>().MirrorType == Defines.UnitType.HealerMirror)
+        //    {
+        //        m_LaserGenerator._laser._CurrentTarget = null;
+        //    }
+        //}
 
-        m_LaserGenerator._CanCastLaser = false;
+        //m_LaserGenerator._CanCastLaser = false;
     }
 
     //to track target in Range

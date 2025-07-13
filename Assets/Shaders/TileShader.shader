@@ -73,8 +73,6 @@ Shader "Unlit/TileShader"
                 o.uv1_uv2.xy = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv1_uv2.zw = TRANSFORM_TEX(v.uv, _Grasstex);
                 o.uv3 = TRANSFORM_TEX(v.uv,_Noisetex);
-                o.viewdir = normalize(WorldSpaceViewDir(v.vertex));
-                o.normal = normalize(UnityObjectToWorldNormal(v.normal));
                 return o;
             }
 

@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class TileObject : MonoBehaviour
 {
+
+    [SerializeField] private GameObject _HealerObject;
     private const string NOISETEX_ON = "NOISETEX_ON";
     private const string EDGE_IMPACTMAX = "_EdgeImapctMax";
 
@@ -19,6 +21,7 @@ public class TileObject : MonoBehaviour
     public Tile3d tile;
     public GameObject _LookatObject;
     public TileTypes _Tiletype;
+    public bool _HealerEnabled;
 
     private void Start()
     {
@@ -76,7 +79,10 @@ public class TileObject : MonoBehaviour
         }
 
     }
+
 }
+
+
 
 public class TileInfo
 {

@@ -186,12 +186,19 @@ public class Troop : MonoBehaviour, IUnitItem
     {
         if (troop == this.gameObject)
         {
+            EventActions.CheckCanSwipe.Invoke(true);
             this.gameObject.SetActive(true);
             UnitsUIManager.Instance.DropUnit(EventActions._SelectedUnitType);
             m_CurrentIntance._TroopDead = false;
             m_CurrentIntance.TriggerMove();
+            EventActions.CheckCanSwipe.Invoke(false);
         }
 
+    }
+
+    public void HealTroop()
+    {
+        print("Healing Troop....");
     }
 
     private bool HasReachedCorner()

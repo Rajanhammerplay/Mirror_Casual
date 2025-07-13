@@ -23,21 +23,31 @@ public class MobileCameraController : MonoBehaviour
     private Vector2 touchStartPos;
     private bool isDragging;
     private int touchId = -1;
+    private bool m_CanSwipe;
 
     private void Start()
     {
         mainCamera = Camera.main;
         targetPosition = transform.position;
+        EventActions.CheckCanSwipe += CheckCanSwipe;
     }
 
     private void Update()
     {
-        HandleTouchInput();
-        if (isDragging) 
+        if (!m_CanSwipe)
         {
-            UpdateCameraPosition();
-        }
+            HandleTouchInput();
+            if (isDragging)
+            {
+                UpdateCameraPosition();
+            }
+        } 
         
+    }
+
+    public void CheckCanSwipe(bool state)
+    {
+        m_CanSwipe = state;
     }
 
     private void HandleTouchInput()

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public class Defines
 {
+    public const string PATH_TAG_NAME = "path";
     //laser types
     public enum LaserTypes
     {
@@ -21,6 +22,11 @@ public class Defines
         Troop_2,
         Jammer,
         none
+    }
+
+    public enum SpecialItem
+    {
+        Healer,
     }
 
     //to check mirror types

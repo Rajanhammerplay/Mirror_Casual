@@ -3,6 +3,9 @@ Shader "Unlit/HealerShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _MinAlpha("MinAlpha", Range(0.0, 1.0)) = 0.2
+        _MaxAlpha("MaxAlpha", Range(0.0, 1.0)) = 0.8
+        _PulseSpeed("Pulse Speed", Range(0.1, 5.0)) = 1.0
         [HDR]_Color("Highligh color",COLOR) = (0,0,0,0)
     }
     SubShader
@@ -39,6 +42,8 @@ Shader "Unlit/HealerShader"
             float4 _MainTex_ST;
 
             float4 _Color;
+            float _MaxAlpha;
+            float _MinAlpha;
 
             v2f vert (appdata v)
             {
