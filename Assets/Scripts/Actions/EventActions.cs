@@ -16,6 +16,8 @@ public class EventActions
     public static Action<Defines.UnitType> _DropUnitOnGround;
     public static Action<Defines.UnitType> _AddUnit;
 
+    public static Action<Defines.UnitType> _SpawnTroops;
+
     /*units shop actions*/
     public static Action<int,int> _AddTroop;
     public static Action<int, int> _DropTroop;

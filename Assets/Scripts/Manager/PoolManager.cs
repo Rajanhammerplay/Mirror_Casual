@@ -72,6 +72,22 @@ public class PoolManager : MonoBehaviour
 
     }
 
+    public bool IsUnitAvailableInPool(Defines.UnitType unittype)
+    {
+        if (!_UnitPoolDict.ContainsKey(unittype))
+        {
+            return false;
+        }
+        if (_UnitPoolDict[unittype].Count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
 }
 

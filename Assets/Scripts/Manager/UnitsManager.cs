@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Defines;
+using static UnityEditor.PlayerSettings;
 
 public class UnitsManager : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class UnitsManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
     public void RegisterUnit(IUnitItem unit)
     {
@@ -75,9 +76,9 @@ public class UnitsManager : MonoBehaviour
         return _unitsByType[type];
     }
 
-    public bool IsPlacableTile(GameObject obj,UnitType type)
+    public bool IsPlacableTile(GameObject obj, UnitType type)
     {
-        if(type == Defines.UnitType.NormalMirror || type == Defines.UnitType.HealerMirror)
+        if (type == Defines.UnitType.NormalMirror || type == Defines.UnitType.HealerMirror)
         {
             if (_MirrorPlacableTiles.Count > 0)
             {
@@ -90,9 +91,9 @@ public class UnitsManager : MonoBehaviour
                 }
             }
         }
-        else if(type == Defines.UnitType.Troop_1 || type == Defines.UnitType.Troop_2)
+        else if (type == Defines.UnitType.Troop_1 || type == Defines.UnitType.Troop_2)
         {
-            if(m_PlayerPlacableTiles == obj)
+            if (m_PlayerPlacableTiles == obj)
             {
                 return true;
             }
@@ -165,4 +166,41 @@ public class UnitsManager : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        EventActions._SpawnTroops += SpawnTroops;
+    }
+
+    [Header("Spawn Settings")]
+    [SerializeField] private float spawnDelay = 0.5f;
+    private Coroutine currentSpawnCoroutine;
+
+    public void SpawnTroops(UnitType unittype)
+    {
+        // Stop any existing spawn coroutine to avoid overlap
+        if (currentSpawnCoroutine != null)
+        {
+            StopCoroutine(currentSpawnCoroutine);
+        }
+
+        currentSpawnCoroutine = StartCoroutine(SpawnTroopsWithDelay(unittype));
+    }
+
+    private IEnumerator SpawnTroopsWithDelay(UnitType unittype)
+    {
+        yield return new WaitForSeconds(2);
+        while (PoolManager._instance._UnitPoolDict[unittype].Count > 0)
+        {
+            GameObject unitobj = PoolManager._instance.GetSpawnableObjectFromPool(unittype);
+            unitobj.GetComponent<IUnitItem>().DropItem(unitobj,m_PlayerPlacableTiles.transform.position,m_PlayerPlacableTiles);
+            yield return new WaitForSeconds(spawnDelay);
+        }
+
+        currentSpawnCoroutine = null;
+    }
+
+    private void OnDisable()
+    {
+        EventActions._SpawnTroops -= SpawnTroops;
+    }
 }

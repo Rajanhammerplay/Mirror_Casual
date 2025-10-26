@@ -94,9 +94,9 @@ public class InputManager : MonoBehaviour
                     }
                     if (UnitsManager._Instance.IsPlacableTile(m_Hit.collider.gameObject, EventActions._SelectedUnitType))
                     {
-                        Vector3 tilepos = m_PlayerPlacable.GetTileData().tileworldpos;
-                        pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
-                        UnitsManager._Instance.DropUnit(pos, this.gameObject);
+                        //Vector3 tilepos = m_PlayerPlacable.GetTileData().tileworldpos;
+                        //pos = new Vector3(tilepos.x, 1.708048f, tilepos.z);
+                        //UnitsManager._Instance.DropUnit(pos, this.gameObject);
                     }
                 }
             }
